@@ -28,13 +28,8 @@ export class RegisterComponent {
   city: string = "";
 
 
-
-
-
   constructor(private authService: AuthenticationService, private router: Router) {
   }
-
-
 
   register() {
     //vérifie si le mot de passe et la confirmation sont identiques
@@ -43,7 +38,7 @@ export class RegisterComponent {
       return;
     }
     //si les mots de passe correspondent, la méthode register du service d'authentification est appelée
-    this.authService.register(this.username, this.email, this.password, this.city).subscribe(
+    this.authService.register(this.username, this.email, this.password, this.confirmPassword, this.city).subscribe(
       (isRegistered) => {
         if (isRegistered) {
           //Si l'inscription est réussie, l'utilisateur est redirigé vers la page de connexion
