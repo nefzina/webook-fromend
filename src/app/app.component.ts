@@ -5,7 +5,7 @@ import {HomeComponent} from "./home/home.component";
 import {ProfileComponent} from "./profile/ui/profile.component";
 import {FooterComponent} from "./components/footer/footer.component";
 import {HeaderComponent} from "./components/header/header.component";
-import {LoginComponent} from "./auth/login/login.component";
+import {LoginComponent} from "./auth/ui/login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
@@ -14,7 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
-import {RegisterComponent} from "./auth/register/register.component";
+import {RegisterComponent} from "./auth/ui/register/register.component";
 import { MatFormField} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 

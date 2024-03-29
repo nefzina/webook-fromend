@@ -5,49 +5,64 @@ import { Router } from '@angular/router';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatCheckbox} from "@angular/material/checkbox";
+import { passwordMatchValidator } from '../../application/passwordMatch';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatSelectModule, MatChipsModule, MatGridListModule, MatCheckbox],
+  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatSelectModule, MatChipsModule, MatGridListModule, MatCheckbox, ReactiveFormsModule, MatIcon],
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-
-  username: string = "";
-  email: string = "";
-  password: string = "";
-  confirmPassword: string = "";
-  city: string = "";
+  registerForm: FormGroup = this.formBuilder.group({});
+hidePassword = true;
 
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthenticationService, private router: Router) {
+    this.createForm();
   }
+
+
+  createForm() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      city: [''],
+    }, { validator: passwordMatchValidator});
+  }
+
+
 
   register() {
     //vérifie si le mot de passe et la confirmation sont identiques
-    if (this.password !== this.confirmPassword) {
-      alert("Les mots de passe ne correspondent pas.");
+    if (this.registerForm.invalid) {
+      alert("Veuillez remplir correctement le formulaire.");
       return;
     }
+
+    const { username, email, password, confirmPassword, city } = this.registerForm.value;
+
     //si les mots de passe correspondent, la méthode register du service d'authentification est appelée
-    this.authService.register(this.username, this.email, this.password, this.confirmPassword, this.city).subscribe(
+    this.authService.register(username, email, password, confirmPassword, city).subscribe(
       (isRegistered) => {
         if (isRegistered) {
-          //Si l'inscription est réussie, l'utilisateur est redirigé vers la page de connexion
           this.router.navigate(['/login']);
         } else {
           console.error('Inscription échouée');
         }
       },
-      (error) => { //si erreur lors de l'appel à la méthode register message error
+      (error) => {
         console.error('Erreur lors de l\'inscription', error);
       }
     );

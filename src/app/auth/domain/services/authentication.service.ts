@@ -11,8 +11,8 @@ export class AuthenticationService implements IAuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  authenticate(username: string, password: string): Observable<boolean> {
-    return this.httpClient.post<any>("http://localhost:8080/login", JSON.stringify({username, password}), {
+  authenticate(email: string, password: string): Observable<boolean> {
+    return this.httpClient.post<any>("http://localhost:8080/login", JSON.stringify({email, password}), {
       headers: {
         "content-type": "application/json"
       },
@@ -20,7 +20,7 @@ export class AuthenticationService implements IAuthenticationService {
       observe: "response"
     }).pipe(
       map(response => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           localStorage.setItem('loggedIn', "true");
           return true;
         }
@@ -31,8 +31,8 @@ export class AuthenticationService implements IAuthenticationService {
 
 
 
-  register(username: string, email: string, password: string, city: string, category_preferences: string): Observable<boolean> {
-    return this.httpClient.post<any>("http://localhost:8080/register", JSON.stringify({username, email, password, city, category_preferences}), {
+  register(username: string, email: string, password: string, confirmPassword:string, city: string): Observable<boolean> {
+    return this.httpClient.post<any>("http://localhost:8080/register", JSON.stringify({username, email, password, confirmPassword, city}), {
       headers: {
         "content-type": "application/json"
       },
@@ -40,7 +40,7 @@ export class AuthenticationService implements IAuthenticationService {
       observe: "response"
     }).pipe(
       map(response => {
-        if (response.status === 200) {
+        if (response.status === 201) {
           return true;
         }
         return false;

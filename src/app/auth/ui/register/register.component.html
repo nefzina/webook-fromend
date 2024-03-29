@@ -1,65 +1,64 @@
-
 <html>
-
 <head>
   <title>Slide Navbar</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
   <style>
     mat-form-field, button {
       display: block;
     }
   </style>
-
-
 </head>
-
-
-
 <body>
 <div class="container">
   <mat-card>
     <mat-card-header><h1>Inscription</h1></mat-card-header>
     <mat-card-content>
-
-      <form>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
         <mat-form-field appearance="fill">
           <mat-label>Pseudo</mat-label>
-          <input matInput placeholder="Pseudo" [(ngModel)]="username" name="username">
+          <input matInput placeholder="Pseudo" formControlName="username">
+          <mat-error *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched">
+            Le pseudo est requis.
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" [(ngModel)]="email" name="email">
+          <input matInput placeholder="Email" formControlName="email">
+          <mat-error *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched">
+            L'email est requis et doit avoir un "&#64;" et un ..
+          </mat-error>
         </mat-form-field>
-
         <mat-form-field appearance="fill">
           <mat-label>Mot de passe</mat-label>
-          <input matInput placeholder="Mot de passe" [(ngModel)]="password" name="password" type="password">
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched">
+            Le mot de passe est requis et doit contenir au moins 8 caractères.
+          </mat-error>
         </mat-form-field>
-
         <mat-form-field appearance="fill">
           <mat-label>Confirmez votre mot de passe</mat-label>
-          <input matInput placeholder="Confirmer le mot de passe" [(ngModel)]="confirmPassword" name="confirmPassword" type="password">
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].touched">
+            Le mot de passe est requis et doit contenir au moins 8 caractères.
+          </mat-error>
+          <mat-error *ngIf="registerForm.hasError('passwordMismatch') && (registerForm.controls['password'].dirty || registerForm.controls['confirmPassword'].dirty)">
+            Les mots de passe ne correspondent pas.
+          </mat-error>
         </mat-form-field>
-
         <mat-form-field appearance="fill">
           <mat-label>Code postale ou ville</mat-label>
-          <input matInput placeholder="Ville" [(ngModel)]="city" name="city">
+          <input matInput placeholder="Ville" formControlName="city">
         </mat-form-field>
-        <div><button mat-raised-button color="primary" (click)="register()">S'inscrire</button></div>
-
+        <div><button mat-raised-button color="primary" type="submit">S'inscrire</button></div>
       </form>
     </mat-card-content>
   </mat-card>
 </div>
-
-
-
-
-
-
-
-
-
 </body>
 </html>
