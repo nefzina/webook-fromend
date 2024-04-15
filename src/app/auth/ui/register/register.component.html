@@ -2,15 +2,10 @@
 <head>
   <title>Slide Navbar</title>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-  <style>
-    mat-form-field, button {
-      display: block;
-    }
-  </style>
 </head>
 <body>
 <div class="container">
-  <mat-card>
+  <mat-card class="card">
     <mat-card-header><h1>Inscription</h1></mat-card-header>
     <mat-card-content>
       <form [formGroup]="registerForm" (ngSubmit)="register()">

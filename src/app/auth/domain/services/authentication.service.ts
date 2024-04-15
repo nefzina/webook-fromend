@@ -20,7 +20,7 @@ export class AuthenticationService implements IAuthenticationService {
       observe: "response"
     }).pipe(
       map(response => {
-        if (response.status === 201) {
+        if (response.status === 200) {
           localStorage.setItem('loggedIn', "true");
           return true;
         }
