@@ -23,7 +23,8 @@ import {MatIcon} from "@angular/material/icon";
 })
 export class RegisterComponent {
   registerForm: FormGroup = this.formBuilder.group({});
-hidePassword = true;
+  hidePassword = true;
+  hideConfirmPassword: boolean=true ;
 
 
 
@@ -45,12 +46,6 @@ hidePassword = true;
 
 
   register() {
-    //vérifie si le mot de passe et la confirmation sont identiques
-    if (this.registerForm.invalid) {
-      alert("Veuillez remplir correctement le formulaire.");
-      return;
-    }
-
     const { username, email, password, confirmPassword, city } = this.registerForm.value;
 
     //si les mots de passe correspondent, la méthode register du service d'authentification est appelée
@@ -67,4 +62,5 @@ hidePassword = true;
       }
     );
   }
+
 }

@@ -35,17 +35,14 @@
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Confirmez votre mot de passe</mat-label>
-          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="confirmPassword">
-          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+          <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
             <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
-          <mat-error *ngIf="registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].touched">
-            Le mot de passe est requis et doit contenir au moins 8 caractères.
-          </mat-error>
-          <mat-error *ngIf="registerForm.hasError('passwordMismatch') && (registerForm.controls['password'].dirty || registerForm.controls['confirmPassword'].dirty)">
-            Les mots de passe ne correspondent pas.
-          </mat-error>
         </mat-form-field>
+        <div class="error" *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.controls['confirmPassword'].valid && registerForm.controls['password'].valid">
+          Les mots de passe ne correspondent pas</div>
+
         <mat-form-field appearance="fill">
           <mat-label>Code postale ou ville</mat-label>
           <input matInput placeholder="Ville" formControlName="city">
