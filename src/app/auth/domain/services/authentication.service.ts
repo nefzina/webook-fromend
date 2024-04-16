@@ -31,8 +31,8 @@ export class AuthenticationService implements IAuthenticationService {
 
 
 
-  register(username: string, email: string, password: string, confirmPassword:string, city: string): Observable<boolean> {
-    return this.httpClient.post<any>("http://localhost:8080/register", JSON.stringify({username, email, password, confirmPassword, city}), {
+  register(username: string, email: string, password: string, confirmPassword:string): Observable<boolean> {
+    return this.httpClient.post<any>("http://localhost:8080/register", JSON.stringify({username, email, password, confirmPassword}), {
       headers: {
         "content-type": "application/json"
       },

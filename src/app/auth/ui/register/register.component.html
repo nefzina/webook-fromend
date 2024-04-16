@@ -2,6 +2,7 @@
 <head>
   <title>Slide Navbar</title>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+  <script src="vicopo-vanilla.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -43,11 +44,7 @@
         <div class="error" *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.controls['confirmPassword'].valid && registerForm.controls['password'].valid">
           Les mots de passe ne correspondent pas</div>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Code postale ou ville</mat-label>
-          <input matInput placeholder="Ville" formControlName="city">
-        </mat-form-field>
-        <div><button mat-raised-button color="primary" type="submit">S'inscrire</button></div>
+        <div class="button-container"><button mat-raised-button color="primary" type="submit">S'inscrire</button></div>
       </form>
     </mat-card-content>
   </mat-card>

@@ -13,14 +13,14 @@ mat-card{
 
 mat-form-field{
   display: block;
-}
-.example-label {
-  display: table-cell;
-  font-size: 14px;
-  margin-left: 8px;
-  min-width: 120px;
+
 }
 
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
 .mat-raised-button {
   display: table-cell;
   max-width: 600px;

@@ -39,17 +39,17 @@ export class RegisterComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      city: [''],
+
     }, { validator: passwordMatchValidator});
   }
 
 
 
   register() {
-    const { username, email, password, confirmPassword, city } = this.registerForm.value;
+    const { username, email, password, confirmPassword } = this.registerForm.value;
 
     //si les mots de passe correspondent, la méthode register du service d'authentification est appelée
-    this.authService.register(username, email, password, confirmPassword, city).subscribe(
+    this.authService.register(username, email, password, confirmPassword).subscribe(
       (isRegistered) => {
         if (isRegistered) {
           this.router.navigate(['/login']);
