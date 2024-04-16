@@ -47,13 +47,15 @@ export class AuthenticationService implements IAuthenticationService {
       }))
   }
 
+
+  /*
   logout(): void {
     // Supprimez l'indicateur de connexion de l'utilisateur du stockage local
     localStorage.removeItem('loggedIn');
 
     this.httpClient.post<any>("http://localhost:8080/logout", { withCredentials: true }).subscribe();
   }
-
+*/
 
 
 }
