@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {RouterLink} from "@angular/router";
+import {RouterLink, RouterLinkActive, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -11,13 +11,26 @@ import {RouterLink} from "@angular/router";
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
-    RouterLink
+    RouterLinkActive,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  loggedUser: any;
+  showFiller = false;
+  constructor(private router: Router) {
+    const localUser = localStorage.getItem('loggedUser');
+    if(localUser != null) {
+      this.loggedUser = JSON.parse(localUser);
+    }
+  }
 
+  onLogoff() {
+    localStorage.removeItem('loggedUser');
+    this.router.navigateByUrl('/login')
+  }
 
 }
 function myFunction() {
