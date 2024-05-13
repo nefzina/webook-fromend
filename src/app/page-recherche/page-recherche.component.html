@@ -1,0 +1,49 @@
+<div class="container-barre-recherche">
+  <p>Recherche avec un mot clé ou la carte</p>
+<!--  <form [formGroup]="bookFrom">-->
+<!--    <mat-form-field>-->
+<!--      <input type="text"-->
+<!--             matInput-->
+<!--             formControlName="bookGroup"-->
+<!--             required-->
+<!--             [matAutocomplete]="autoGroup"-->
+<!--             placeholder="Recherche avec mot clé ou code postal">-->
+<!--      <mat-autocomplete #autoGroup="matAutocomplete">-->
+<!--        <ng-container *ngFor="let group of bookGroupOptions | async">-->
+<!--          <mat-optgroup [label]="group.author">-->
+<!--            <mat-option *ngFor="let name of group.name" [value]="name">{{name}}</mat-option>-->
+<!--          </mat-optgroup>-->
+<!--        </ng-container>-->
+<!--      </mat-autocomplete>-->
+<!--    </mat-form-field>-->
+<!--  </form>-->
+  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()">
+  <div *ngFor="let suggestion of filteredSuggestions">
+    <div (click)="selectSuggestion(suggestion)">
+      {{suggestion}}
+    </div>
+  </div>
+  <button  (click)="showMap()">Afficher carte</button>
+</div>
+
+<div class="filters">
+  <p>FILTRER par :</p>
+  <select name="category" (change)="onCategoryChange($event.target)">
+    <option value="">- Catégory -</option>
+    <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+  </select>
+  <select name="author" (change)="onAuthorChange($event.target)">
+    <option value="">- Auteur -</option>
+    <option *ngFor="let auteur of authors" [value]="auteur">{{auteur}}</option>
+  </select>
+  <select name="map" (change)="onMapChange($event.target)">
+    <option value="">- Localisation -</option>
+    <option *ngFor="let map of Maps" [value]="map">{{map}}</option>
+  </select>
+</div>
+
+<div class="container-resultat-recherche">
+  <a *ngFor="let mockBook of mockBooks" [routerLink]="['page-book', mockBook.id]">
+    <img class="picture-book" [src]="mockBook.image" alt="book picture">
+  </a>
+</div>

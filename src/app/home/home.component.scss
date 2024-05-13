@@ -26,7 +26,15 @@ p {
   margin: 50px;
   width: 35%;
   height: auto;
+  position: relative;
 
+}
+.banner-img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+
+  position: absolute;
 }
 
 button {
@@ -45,16 +53,7 @@ button {
 }
 button:hover {
   border-width: 2px;
-  font-size: 110%;
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-img {
-  width: 100%;
-  height: auto;
+  transform: scale(1.25);
 }
 
 .container-titre-recommendation{
@@ -67,14 +66,20 @@ img {
 
 }
 .container-recommendation {
-  text-align: center;
-  padding-left: 15%;
-  padding-right: 15%;
+  display: flex;
+  padding-right: 200px;
+  padding-left: 200px;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .picture-book {
-  width: 150px;
+  width: 175px;
   height: auto;
-
-  margin: 25px
+  transform: rotate3d(0, -2, 1, 20deg);
+  margin: 10px;
+  transition: filter 1000ms, transform 300ms;
 }
-
+.picture-book:hover {
+  transform: scale(1.15);
+  filter: none;
+}
