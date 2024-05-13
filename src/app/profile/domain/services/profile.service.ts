@@ -11,8 +11,8 @@ export class ProfileService {
   constructor(private apiService: ApiService) {
   }
 
-  getUserById(): Observable<User> {
-    return this.apiService.getById<User>(1, 'users').pipe(
+  getUserById(id : number): Observable<User> {
+    return this.apiService.getById<User>(id, 'users').pipe(
       tap(response => this.user = response)
     )
   }

@@ -12,13 +12,14 @@ import {RouterLink, RouterLinkActive, Router} from "@angular/router";
     MatMenuModule,
     MatToolbarModule,
     RouterLinkActive,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
   loggedUser: any;
+  showFiller = false;
   constructor(private router: Router) {
     const localUser = localStorage.getItem('loggedUser');
     if(localUser != null) {

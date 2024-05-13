@@ -3,6 +3,7 @@ import { Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {Book} from "../book/domain/models/book";
 import {IUser} from "../profile/domain/interface/IUser";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,9 @@ export class ApiService {
   }
 
   getById<T>(id: number, endpoint: string): Observable<T> {
-    return this.http.get<T>(`${process.env["BACKEND_URL "]}/${endpoint}/${id}`, {
+    return this.http.get<T>(`${environment.API_URL}/${endpoint}/${id}`, {
       headers: this.getAuthHeaders(),
-      withCredentials: true,
+      // withCredentials: true,
     })
   }
 

@@ -1,28 +1,32 @@
 <div class="profile">
   <div class="myLibrary">
     <h2>Ma bibliothèque</h2>
-    <button>Ajouter</button>
+    <button class="addBook">Ajouter</button>
 
     <div class="bookList">
-      <p *ngIf="user.books.length == 0; else bookList">Pas de livres encore dans votre bibliothèque</p>
+      <p class="noBooks" *ngIf="user.books?.length == 0; else bookList">Pas de livres encore dans votre bibliothèque</p>
       <ng-template #bookList>
-        <p *ngFor="let book of user.books">{{book}}</p>
+        <p *ngFor="let book of user.books">{{ book }}</p>
       </ng-template>
     </div>
 
   </div>
   <div class="personalInfo">
-    <button><img src="../../../assets/edit.png" title="modifier vos informations" alt="modifier"></button>
-    <img src="user.photo" alt="your profile picture">
-    <h3>{{user.username}}</h3>
-    <p>{{user.email}}</p>
-    <p>{{user.city}}</p>
+    <div class="avatar">
+      <img [src]="user.profilePicture == null ? defaultProfilePic : user.profilePicture" alt="your profile picture">
+      <button class="addAvatarBtn"><img src="./assets/plus.png" alt="modifier avatar"></button>
+    </div>
+
+    <button class="editDataBtn"><img src="../../../assets/edit.png" title="modifier vos informations" alt="modifier"></button>
+    <h3>{{ user.username }}</h3>
+    <p>{{ user.email }}</p>
+    <p>{{ user.city }}</p>
     <i></i>
-    <p>Préférences</p>
     <div class="preferencesContainer">
-      <p *ngIf="user.preferences.length == 0; else preferencesList">Ajoutez vos préférences</p>
+      <p class="title">Préférences</p>
+      <p class="noPreferences" *ngIf="user.preferences.length == 0; else preferencesList">Ajoutez vos préférences</p>
       <ng-template #preferencesList>
-        <p *ngFor="let pref of user.preferences">{{pref}}</p>
+        <p *ngFor="let pref of user.preferences">{{ pref }}</p>
       </ng-template>
     </div>
   </div>

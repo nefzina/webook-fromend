@@ -1,6 +1,7 @@
 import {IUser} from "../interface/IUser";
 import {Category} from "../interface/Category";
 import {Book} from "../interface/Book";
+import {IMedia} from "../interface/IMedia";
 
 export class User implements IUser {
   constructor(
@@ -10,5 +11,6 @@ export class User implements IUser {
     public city: string,
     public preferences: Category[] = [],
     public books: Book[] = [],
+    public profilePicture?: IMedia,
   ) { }
 }

@@ -1,5 +1,6 @@
 import {Book} from "./Book";
 import {Category} from "./Category";
+import {IMedia} from "./IMedia";
 
 export interface IUser {
   username: string,
@@ -8,4 +9,5 @@ export interface IUser {
   city: string,
   preferences: Category[],
   books: Book[],
+  profilePicture?: IMedia,
 }
