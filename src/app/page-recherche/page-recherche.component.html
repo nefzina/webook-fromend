@@ -1,19 +1,29 @@
 <div class="container-barre-recherche">
   <p>Recherche avec un mot clé ou la carte</p>
-<!--  <mat-form-field class="example-form-field">-->
-<!--    <mat-label>Recherche avec mot clé ou code postal</mat-label>-->
-<!--    <input matInput type="text" [(ngModel)]="searchText">-->
-<!--    @if(searchText){-->
-<!--    <button matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">-->
-<!--      <mat-icon>close</mat-icon>-->
-<!--    </button>}-->
-<!--  </mat-form-field>-->
-  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal">
-<!--  @if(searchText){-->
-<!--    <button matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''">-->
-<!--    <mat-icon>recherche</mat-icon>-->
-<!--    </button>}-->
-  <button>Afficher carte</button>
+<!--  <form [formGroup]="bookFrom">-->
+<!--    <mat-form-field>-->
+<!--      <input type="text"-->
+<!--             matInput-->
+<!--             formControlName="bookGroup"-->
+<!--             required-->
+<!--             [matAutocomplete]="autoGroup"-->
+<!--             placeholder="Recherche avec mot clé ou code postal">-->
+<!--      <mat-autocomplete #autoGroup="matAutocomplete">-->
+<!--        <ng-container *ngFor="let group of bookGroupOptions | async">-->
+<!--          <mat-optgroup [label]="group.author">-->
+<!--            <mat-option *ngFor="let name of group.name" [value]="name">{{name}}</mat-option>-->
+<!--          </mat-optgroup>-->
+<!--        </ng-container>-->
+<!--      </mat-autocomplete>-->
+<!--    </mat-form-field>-->
+<!--  </form>-->
+  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()">
+  <div *ngFor="let suggestion of filteredSuggestions">
+    <div (click)="selectSuggestion(suggestion)">
+      {{suggestion}}
+    </div>
+  </div>
+  <button  (click)="showMap()">Afficher carte</button>
 </div>
 
 <div class="filters">
@@ -24,7 +34,7 @@
   </select>
   <select name="author" (change)="onAuthorChange($event.target)">
     <option value="">- Auteur -</option>
-    <option *ngFor="let auteur of Auteurs" [value]="auteur">{{auteur}}</option>
+    <option *ngFor="let auteur of authors" [value]="auteur">{{auteur}}</option>
   </select>
   <select name="map" (change)="onMapChange($event.target)">
     <option value="">- Localisation -</option>

@@ -22,6 +22,8 @@ export class BookService {
         {id: 9, name: 'Du même bois',image: 'assets/pictures/Du-meme-bois.jpg',category:'', author: 'test9', edition: '', resume: '', isbn: '',review: ''},
         {id: 10, name: 'Du même bois',image: 'assets/pictures/Du-meme-bois.jpg',category:'', author: 'test10', edition: '', resume: '', isbn: '',review: ''},
     ]
+
+
   constructor(private http: HttpClient) { }
 
   getAuthors(){
