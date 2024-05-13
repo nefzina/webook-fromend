@@ -14,3 +14,5 @@ describe('AuthenticationService', () => {
     expect(service).toBeTruthy();
   });
 });
+
+// teste pour injecter le service et vérifier qu'il a été correctement créé
