@@ -20,9 +20,9 @@ export class ApiService {
     })
   }
   get<T>( endpoint: string): Observable<T> {
-    return this.http.get<T>(`${process.env["BACKEND_URL "]}/${endpoint}`, {
+    return this.http.get<T>(`${environment.API_URL}/${endpoint}`, {
       headers: this.getAuthHeaders(),
-      withCredentials: true,
+      // withCredentials: true,
     })
   }
 
@@ -34,14 +34,14 @@ export class ApiService {
   }
 
   post<T>(endpoint: string, body: Book|IUser): Observable<T> {
-    return this.http.post<T>(`${process.env["BACKEND_URL "]}/${endpoint}`, body,{
+    return this.http.post<T>(`${environment.API_URL}/${endpoint}`, body,{
       headers: this.getAuthHeaders(),
       withCredentials: true,
     });
   }
 
   put<T>(endpoint: string, id:number, body: any, headers?: HttpHeaders): Observable<T> {
-    return this.http.put<T>(`${process.env["BACKEND_URL "]}/${endpoint}/${id}`, body, {
+    return this.http.put<T>(`${environment.API_URL}/${endpoint}/${id}`, body, {
       headers: this.getAuthHeaders(),
       withCredentials: true,
     });

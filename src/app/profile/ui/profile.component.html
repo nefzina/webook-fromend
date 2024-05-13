@@ -17,7 +17,11 @@
       <button class="addAvatarBtn"><img src="./assets/plus.png" alt="modifier avatar"></button>
     </div>
 
-    <button class="editDataBtn"><img src="../../../assets/edit.png" title="modifier vos informations" alt="modifier"></button>
+    <button class="editDataBtn">
+      <a routerLinkActive="active" routerLink="/update-profile">
+        <img src="../../../assets/edit.png" title="modifier vos informations" alt="modifier">
+      </a>
+    </button>
     <h3>{{ user.username }}</h3>
     <p>{{ user.email }}</p>
     <p>{{ user.city }}</p>
