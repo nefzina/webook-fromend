@@ -17,6 +17,11 @@ export const routes: Routes = [
     loadComponent: () => import('./profile/ui/profile.component')
       .then(r => r.ProfileComponent)
   },
+  {
+    path: 'update-profile',
+    loadComponent: () => import('./profile/ui/update-profile/update-profile.component')
+      .then(r => r.UpdateProfileComponent)
+  },
 
   // { path: 'book',
   //   loadComponent: () => import('./page-book.component')

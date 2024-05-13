@@ -1,5 +1,5 @@
 import {IUser} from "../interface/IUser";
-import {Category} from "../interface/Category";
+import {ICategory} from "../interface/ICategory";
 import {Book} from "../interface/Book";
 import {IMedia} from "../interface/IMedia";
 
@@ -9,7 +9,7 @@ export class User implements IUser {
     public email: string,
     public zip_code: number,
     public city: string,
-    public preferences: Category[] = [],
+    public preferences: ICategory[] = [],
     public books: Book[] = [],
     public profilePicture?: IMedia,
   ) { }

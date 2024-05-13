@@ -2,13 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../domain/services/profile.service";
 import {IUser} from "../domain/interface/IUser";
 import {NgForOf, NgIf} from "@angular/common";
+import {RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
