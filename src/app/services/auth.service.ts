@@ -13,10 +13,3 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 }
-
-
- // register(username: string, email: string, password: string) {
-    // URL de l' API
-  //  return this.http.post('#', { username, email, password });
-  //}
-//}
