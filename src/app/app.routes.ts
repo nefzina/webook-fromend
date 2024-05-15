@@ -5,6 +5,7 @@ import {PageBookComponent} from "./page-book/page-book.component";
 import {PageRechercheComponent} from "./page-recherche/page-recherche.component";
 import {LoginComponent} from "./auth/ui/login/login.component";
 import {RegisterComponent} from "./auth/ui/register/register.component";
+import {GuideComponent} from "./guide/guide.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,7 +32,10 @@ export const routes: Routes = [
     path:'login',
     component: LoginComponent
   },
-
+  {
+    path:'guide',
+    component: GuideComponent
+  },
   {
     path:'register',
     component: RegisterComponent
