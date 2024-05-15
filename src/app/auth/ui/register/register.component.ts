@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import { AuthenticationService } from '../../domain/services/authentication.service';
+import {AuthenticationService} from '../../domain/services/authentication.service';
 
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
@@ -11,8 +11,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatCheckbox} from "@angular/material/checkbox";
-import { passwordMatchValidator } from '../../application/passwordMatch';
+import {passwordMatchValidator} from '../../application/passwordMatch';
 import {MatIcon} from "@angular/material/icon";
+import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
 
 @Component({
   selector: 'app-register',
@@ -24,8 +25,7 @@ import {MatIcon} from "@angular/material/icon";
 export class RegisterComponent {
   registerForm: FormGroup = this.formBuilder.group({});
   hidePassword = true;
-  hideConfirmPassword: boolean=true ;
-
+  hideConfirmPassword: boolean = true;
 
 
   constructor(private formBuilder: FormBuilder, private authService: AuthenticationService, private router: Router) {
@@ -40,16 +40,15 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
 
-    }, { validator: passwordMatchValidator});
+    }, {validator: passwordMatchValidator});
   }
 
 
-
   register() {
-    const { username, email, password, confirmPassword } = this.registerForm.value;
+    const user:LoginRequestDto = this.registerForm.value;
 
     //si les mots de passe correspondent, la méthode register du service d'authentification est appelée
-    this.authService.register(username, email, password, confirmPassword).subscribe(
+    this.authService.register(user).subscribe(
       (isRegistered) => {
         if (isRegistered) {
           this.router.navigate(['/login']);

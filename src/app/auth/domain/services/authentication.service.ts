@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {IAuthenticationService} from "./IAuthentication-service";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
+import {LoginRequestDto} from "../dtos/LoginRequestDto";
+import {User} from "../models/User";
+import {environment} from "../../../../environments/environment";
 
 
 @Injectable({
@@ -9,14 +12,14 @@ import {map, Observable} from "rxjs";
 })
 export class AuthenticationService implements IAuthenticationService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  authenticate(email: string, password: string): Observable<boolean> {
-    return this.httpClient.post<any>("http://localhost:8080/login", JSON.stringify({email, password}), {
+  authenticate(user: LoginRequestDto): Observable<boolean> {
+    return this.httpClient.post<any>(`${environment.API_URL}/login`, user, {
       headers: {
         "content-type": "application/json"
       },
-      withCredentials: true,
       observe: "response"
     }).pipe(
       map(response => {
@@ -28,25 +31,17 @@ export class AuthenticationService implements IAuthenticationService {
       }))
   }
 
-
-
-
-  register(username: string, email: string, password: string, confirmPassword:string): Observable<boolean> {
-    return this.httpClient.post<any>("http://localhost:8080/register", JSON.stringify({username, email, password, confirmPassword}), {
+  register(user: User): Observable<Boolean> {
+    return this.httpClient.post<any>(`${environment.API_URL}/register`, user, {
       headers: {
         "content-type": "application/json"
       },
-      withCredentials: true,
       observe: "response"
     }).pipe(
       map(response => {
-        if (response.status === 201) {
-          return true;
-        }
-        return false;
+        return response.status === 201;
       }))
   }
-
 
   /*
   logout(): void {
@@ -56,6 +51,4 @@ export class AuthenticationService implements IAuthenticationService {
     this.httpClient.post<any>("http://localhost:8080/logout", { withCredentials: true }).subscribe();
   }
 */
-
-
 }

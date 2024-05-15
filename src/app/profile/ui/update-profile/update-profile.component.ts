@@ -7,6 +7,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {ICategory} from "../../domain/interface/ICategory";
 import {CommonModule} from "@angular/common";
+import {MatChipsModule} from '@angular/material/chips';
+import {type} from "node:os";
 
 @Component({
   selector: 'app-update-profile',
@@ -15,6 +17,7 @@ import {CommonModule} from "@angular/common";
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatChipsModule,
     MatIconModule,
     CommonModule
   ],
@@ -32,12 +35,15 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.profileService.getCategoryById(1).subscribe(response => this.category = response);
-    // console.log(this.category)
+    this.profileService.getUserById(1).subscribe((response) => {
+      this.user = response;
+      console.log(response);
+    })
+
     this.profileService.getCategories().subscribe(response => this.categories = response);
     console.log(this.categories)
   }
 
-
-  // @Input() user: IUser;
-}
+  isCategorySelected(category: ICategory): boolean {
+    return !!this.user.preferences.find(pref => pref.type === category.type);
+  }}

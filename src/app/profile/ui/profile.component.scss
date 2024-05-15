@@ -5,6 +5,7 @@
   flex-direction: column-reverse;
   width: 100%;
   max-width: 1920px;
+  min-height: v.$min-body-height;
 
   .myLibrary {
     width: 100%;

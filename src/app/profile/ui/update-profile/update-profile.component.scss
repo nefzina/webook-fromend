@@ -1,48 +1,75 @@
 @use "variables" as v;
 
-.updateData {
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1200px;
+.updateProfile {
+  min-height: v.$min-body-height;
+  padding: 10px;
 
-  .rightContainer {
-    width: 100%;
-    padding: 10px;
-  }
-
-  .leftContainer {
-    width: 100%;
-    padding: 10px;
-    display: grid;
-    place-content: center;
-    border-bottom: 4px solid v.$medium-green;
-
-    mat-form-field {
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 400px;
-      margin-left: 8px;
-      display: block;
-    }
-  }
-}
-
-@media screen and (min-width: 750px) {
   .updateData {
-    flex-direction: row;
-    gap: 0;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
 
-    .rightContainer, .leftContainer {
-      width: 50%;
-      padding: 20px;
+    .rightContainer {
+      width: 100%;
+      padding: 10px;
     }
-    .leftContainer{
-      border-bottom: none;
-      border-right: 4px solid v.$medium-green;
+
+    .leftContainer {
+      width: 100%;
+      padding: 10px;
+      display: grid;
+      place-content: center;
+      border-bottom: 4px solid v.$medium-green;
+
+      mat-form-field {
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 400px;
+        margin-left: 8px;
+        display: block;
+      }
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .updateData {
+      flex-direction: row;
+      gap: 0;
+      margin: 0 auto;
+
+      .rightContainer, .leftContainer {
+        width: 50%;
+        padding: 20px;
+
+        .mat-mdc-chip-set {
+          display: flex;
+          flex-wrap: wrap;
+
+          .mat-mdc-chip-option {
+            width: fit-content;
+            border-radius: 0px;
+            color: black;
+          }
+
+          .selected {
+            background-color: v.$medium-green;
+          }
+
+          .notSelected {
+            border: 3px solid v.$medium-green;
+            background-color: v.$light-green;
+          }
+        }
+      }
+
+      .leftContainer {
+        border-bottom: none;
+        border-right: 4px solid v.$medium-green;
+      }
     }
   }
 }

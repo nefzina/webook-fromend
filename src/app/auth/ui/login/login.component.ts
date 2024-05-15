@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {AuthenticationService} from "../../domain/services/authentication.service";
 import {Router} from "@angular/router";
-import {LoginRequestDto} from "../../domain/dtos/login-request.dto";
+import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
 import {MatIcon} from "@angular/material/icon";
 
 
@@ -32,7 +32,7 @@ export class LoginComponent {
     if (this.email !== "" && this.password !== "") {
       const loginDto = new LoginRequestDto(this.email, this.password);
 
-      this.authService.authenticate(loginDto.email, loginDto.password).subscribe(
+      this.authService.authenticate(loginDto).subscribe(
         (isLoggedIn: any) => {
           if (isLoggedIn) {
             this.router.navigate(['/home']);
