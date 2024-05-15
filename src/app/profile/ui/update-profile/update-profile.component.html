@@ -1,44 +1,53 @@
-<h2>Modifier mes coordonnées</h2>
-<div class="updateData">
-  <div class="leftContainer">
-    <mat-form-field>
-      <mat-label>Username</mat-label>
-      <input matInput required>
-      <!--      @if (email.invalid) {-->
-      <!--        <mat-error>{{errorMessage}}</mat-error>-->
-      <!--      }-->
-    </mat-form-field>
+<div class="updateProfile">
 
-    <mat-form-field hintLabel="Min 8 caractères">
-      <mat-label>Nouveau mot de passe</mat-label>
-      <input matInput #pw [type]="hide ? 'password' : 'text'" minlength="8">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-      <mat-hint align="end">{{ pw.value.length }}/8</mat-hint>
-    </mat-form-field>
+    <h2>Modifier mes coordonnées</h2>
+    <div class="updateData">
+        <div class="leftContainer">
+            <mat-form-field>
+                <mat-label>Username</mat-label>
+                <input matInput required>
+                <!--      @if (email.invalid) {-->
+                <!--        <mat-error>{{errorMessage}}</mat-error>-->
+                <!--      }-->
+            </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Ville</mat-label>
-      <input #ville matInput>
-    </mat-form-field>
+            <mat-form-field hintLabel="Min 8 caractères">
+                <mat-label>Nouveau mot de passe</mat-label>
+                <input matInput #pw [type]="hide ? 'password' : 'text'" minlength="8">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-hint align="end">{{ pw.value.length }}/8</mat-hint>
+            </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Code postal</mat-label>
-      <input #codePostal matInput>
-    </mat-form-field>
-    <ul>
-      <li data-vicopo="#ville, #code" data-vicopo-click='{"#code": "code", "#ville": "ville"}'>
-        <strong data-vicopo-code-postal></strong>
-        <span data-vicopo-ville></span>
-      </li>
-    </ul>
-  </div>
-  <div class="rightContainer">
-    <p>Preferences</p>
-    <div class="categoryList">
-      <button *ngFor="let category of categories">{{category.type}}</button>
+            <mat-form-field>
+                <mat-label>Ville</mat-label>
+                <input #ville matInput>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Code postal</mat-label>
+                <input #codePostal matInput>
+            </mat-form-field>
+<!--            <ul>-->
+<!--                <li data-vicopo="#ville, #code" data-vicopo-click='{"#code": "code", "#ville": "ville"}'>-->
+<!--                    <strong data-vicopo-code-postal></strong>-->
+<!--                    <span data-vicopo-ville></span>-->
+<!--                </li>-->
+<!--            </ul>-->
+        </div>
+        <div class="rightContainer">
+            <p>Preferences</p>
+<!--            <div class="categoryList">-->
+<!--                <button *ngFor="let category of categories">{{ category.type }}</button>-->
+<!--            </div>-->
+
+                <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" [multiple]="true">
+                    @for (category of categories; track category) {
+                        <mat-chip-option [selected]="isCategorySelected(category)" >{{category.type}}</mat-chip-option>
+                    }
+                </mat-chip-listbox>
+        </div>
     </div>
-  </div>
 </div>

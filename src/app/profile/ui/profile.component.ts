@@ -3,6 +3,8 @@ import {ProfileService} from "../domain/services/profile.service";
 import {IUser} from "../domain/interface/IUser";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {response} from "express";
+import {ICategory} from "../domain/interface/ICategory";
 
 @Component({
   selector: 'app-profile',
@@ -24,11 +26,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.profileService.getUserById(1).subscribe((response) => {
       this.user = response;
       console.log(response);
     })
-
   }
 }

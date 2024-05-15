@@ -7,7 +7,7 @@ export class User implements IUser {
   constructor(
     public username: string,
     public email: string,
-    public zip_code: number,
+    public zip_code: string,
     public city: string,
     public preferences: ICategory[] = [],
     public books: Book[] = [],

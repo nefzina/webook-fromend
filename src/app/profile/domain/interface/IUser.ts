@@ -5,7 +5,7 @@ import {IMedia} from "./IMedia";
 export interface IUser {
   username: string,
   email: string,
-  zip_code: number,
+  zip_code: string,
   city: string,
   preferences: ICategory[],
   books: Book[],
