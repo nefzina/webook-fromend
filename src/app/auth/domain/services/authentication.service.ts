@@ -33,7 +33,7 @@ export class AuthenticationService implements IAuthenticationService {
   }
 
   register(user: User): Observable<Boolean> {
-    return this.httpClient.post<any>(`${environment.API_URL}/register`, user, {
+    return this.httpClient.post<any>(`${environment.API_URL}/register`,  JSON.stringify(user), {
       headers: {
         "content-type": "application/json"
       },
