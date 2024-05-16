@@ -20,6 +20,8 @@
 
         <button id="btn-login" mat-raised-button color="primary" (click)="login()">Se connecter</button>
         <mat-error *ngIf="loginError">{{ loginError }}</mat-error>
+        <a routerLinkActive="active" routerLink="/register">S'inscrire</a>
+
       </form>
     </mat-card-content>
   </mat-card>

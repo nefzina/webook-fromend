@@ -1,10 +1,12 @@
+@use "variables" as v;
 
 .container {
   display: flex;
   justify-content: center;
   align-items:center;
   height: 100%;
-  background-color: #b8b8b8;
+  min-height: v.$min-body-height;
+  background-color: v.$light-green;
 }
 
 mat-card {

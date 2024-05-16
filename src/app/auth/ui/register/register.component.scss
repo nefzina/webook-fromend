@@ -1,26 +1,32 @@
+@use "variables" as v;
 
-body{
-  background-color: #ccdce1;
+.container {
+  min-height: v.$min-body-height;
+  background-color: v.$light-green;
+  display: flex;
+  justify-content: center;
+  align-items:center;
 }
+
 section {
   display: table;
 }
 
-mat-card{
-  max-width: 40%;
- margin: 10px auto;
-  }
-
-mat-form-field{
-  display: block;
-
+mat-card {
+  width: 100%;
+  margin: 10px auto;
+  max-width: 500px;
 }
 
+mat-form-field {
+  display: block;
+}
 
 .button-container {
   display: flex;
   justify-content: center;
 }
+
 .mat-raised-button {
   display: table-cell;
   max-width: 600px;
@@ -31,7 +37,7 @@ mat-form-field{
 
 button {
   margin: 25px;
-  background-color: rgb(76, 162,168, 20%);
+  background-color: rgb(76, 162, 168, 20%);
   font-weight: bold;
   font-family: "Mulish", serif;
   color: black;
@@ -39,15 +45,17 @@ button {
   padding: 10px 20px;
   text-align: center;
   text-transform: uppercase;
-  box-shadow: 0 4px 4px rgb(99,99,99,25%), inset 0 4px rgb(99,99,99,5%);
+  box-shadow: 0 4px 4px rgb(99, 99, 99, 25%), inset 0 4px rgb(99, 99, 99, 5%);
   transition: all 0.3s ease;
 
 }
-.error{
+
+.error {
   margin-top: -19px;
   color: red;
   font-size: 12px;
 }
+
 button:hover {
   border-width: 2px;
   font-size: 110%;

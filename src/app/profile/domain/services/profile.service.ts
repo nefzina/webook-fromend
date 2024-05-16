@@ -16,19 +16,19 @@ export class ProfileService {
   }
 
   getUserById(id: number): Observable<User> {
-    return this.apiService.getById<User>(id, 'users', true).pipe(
+    return this.apiService.getById<User>(id, 'users').pipe(
       tap(response => this.user = response)
     )
   }
 
   getCategories():Observable<ICategory[]> {
-    return this.apiService.get<ICategory[]>('categories', false).pipe(
+    return this.apiService.get<ICategory[]>('categories').pipe(
       tap(response => this.categories = response)
     )
   }
 
   getCategoryById(id:number):Observable<ICategory> {
-    return this.apiService.getById<ICategory>(id, 'categories', false).pipe(
+    return this.apiService.getById<ICategory>(id, 'categories').pipe(
       tap(response => this.category = response)
     )
   }
