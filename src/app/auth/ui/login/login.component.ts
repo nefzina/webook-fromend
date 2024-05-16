@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -20,11 +20,12 @@ import {MatIcon} from "@angular/material/icon";
 export class LoginComponent {
   email: string = "";
   password: string = "";
-  loginError="";
+  loginError = "";
   hidePassword = true;
 
 
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private router: Router) {
+  }
 
 
   login() {
