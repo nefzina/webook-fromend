@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from '../../domain/services/authentication.service';
 
-import {Router} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
@@ -19,7 +19,7 @@ import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
   selector: 'app-register',
   templateUrl: './register.component.html',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatSelectModule, MatChipsModule, MatGridListModule, MatCheckbox, ReactiveFormsModule, MatIcon],
+    imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatSelectModule, MatChipsModule, MatGridListModule, MatCheckbox, ReactiveFormsModule, MatIcon, RouterLink, RouterLinkActive],
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {

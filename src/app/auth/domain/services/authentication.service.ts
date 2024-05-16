@@ -16,10 +16,11 @@ export class AuthenticationService implements IAuthenticationService {
   }
 
   authenticate(user: LoginRequestDto): Observable<boolean> {
-    return this.httpClient.post<any>(`${environment.API_URL}/login`, user, {
+    return this.httpClient.post<any>(`${environment.API_URL}/login`, JSON.stringify(user), {
       headers: {
         "content-type": "application/json"
       },
+      withCredentials: true,
       observe: "response"
     }).pipe(
       map(response => {
@@ -36,6 +37,7 @@ export class AuthenticationService implements IAuthenticationService {
       headers: {
         "content-type": "application/json"
       },
+      withCredentials:true,
       observe: "response"
     }).pipe(
       map(response => {

@@ -22,24 +22,24 @@ export class ApiService {
     })
   }
 
-  get<T>(endpoint: string, credential: boolean): Observable<T> {
+  get<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${environment.API_URL}/${endpoint}`, {
       headers: this.getAuthHeaders(),
-      withCredentials: credential,
+      withCredentials: true,
     })
   }
 
-  getById<T>(id: number, endpoint: string, credential: boolean): Observable<T> {
+  getById<T>(id: number, endpoint: string): Observable<T> {
     return this.http.get<T>(`${environment.API_URL}/${endpoint}/${id}`, {
       headers: this.getAuthHeaders(),
-      withCredentials: credential,
+      withCredentials: true,
     })
   }
 
-  post<T>(endpoint: string, body: Book | IUser | LoginRequestDto | User, credential: boolean): Observable<T> {
+  post<T>(endpoint: string, body: Book | IUser | LoginRequestDto | User): Observable<T> {
     return this.http.post<T>(`${environment.API_URL}/${endpoint}`, body, {
       headers: this.getAuthHeaders(),
-      withCredentials: credential,
+      withCredentials: true,
     });
   }
 
