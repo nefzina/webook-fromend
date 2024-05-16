@@ -6,6 +6,7 @@ import {PageRechercheComponent} from "./page-recherche/page-recherche.component"
 import {LoginComponent} from "./auth/ui/login/login.component";
 import {RegisterComponent} from "./auth/ui/register/register.component";
 import {GuideComponent} from "./guide/guide.component";
+import {AuthGuard} from "./auth/application/AuthGuard";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,12 +17,15 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () => import('./profile/ui/profile.component')
-      .then(r => r.ProfileComponent)
+      .then(r => r.ProfileComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: 'update-profile',
     loadComponent: () => import('./profile/ui/update-profile/update-profile.component')
-      .then(r => r.UpdateProfileComponent)
+      .then(r => r.UpdateProfileComponent),
+    canActivate: [AuthGuard],
+
   },
 
   // { path: 'book',
