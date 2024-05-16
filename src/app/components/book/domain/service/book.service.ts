@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Book} from "../models/book";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
+import {Author} from "../models/author";
 
 @Injectable({
   providedIn: 'root'
@@ -43,5 +44,13 @@ export class BookService {
       })
     );
   }
-
+  getAuthorList(): Observable<Author[]> {
+    return this.http.get<Author[]>('http://localhost:8080/authors').pipe(
+      tap((authorList) => console.table(authorList)),
+      catchError((error) => {
+        console.log(error);
+        return of([]);
+      })
+    );
+  }
 }

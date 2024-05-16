@@ -49,3 +49,13 @@ select {
   padding-right: 20px;
   background: rgba(217, 217, 217, 0.78);
 }
+.picture-book {
+  filter: brightness(80%);
+  margin: 10px;
+  transition: filter 1000ms, transform 300ms;
+}
+.picture-book:hover {
+  transform: scale(1.15);
+  filter: brightness(100%);
+  cursor:pointer;
+}

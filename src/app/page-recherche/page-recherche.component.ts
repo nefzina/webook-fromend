@@ -7,7 +7,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {async, map, Observable, startWith} from "rxjs";
+import {async, forkJoin, map, Observable, startWith} from "rxjs";
+import {Author} from "../components/book/domain/models/author";
 
 export interface BookGroup {
   name: string;
@@ -18,6 +19,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 
   return opt.filter(item => item.toLowerCase().includes(filterValue));
 };
+
 @Component({
   selector:
     'app-page-recherche',
@@ -59,13 +61,14 @@ export class PageRechercheComponent {
     bookGroups: BookGroup[] = this.bookService.mockBooks;
 
     bookGroupOptions: Observable<BookGroup[]> | undefined;
+    private dataSouce: Author[] | undefined;
 
   constructor(private bookService: BookService,
               private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.mockBooks = this.bookService.mockBooks;
-
+    this.loadData()
     //this.authors = this.bookService.getAuthors();
     this.bookGroupOptions = this.bookFrom.get('bookGroup')!.valueChanges.pipe(
       startWith(''),
@@ -108,7 +111,6 @@ export class PageRechercheComponent {
     if (category) {
       this.mockBooks.sort((a, b) => a.category.localeCompare(b.category));
     } else {
-      // Si aucune catégorie n'est sélectionnée, réinitialisez l'ordre des livres
       this.resetBookOrder();
     }
   }
@@ -117,7 +119,6 @@ export class PageRechercheComponent {
     if (author) {
       this.mockBooks.sort((a, b) => a.author.localeCompare(b.author));
     } else {
-      // Si aucune catégorie n'est sélectionnée, réinitialisez l'ordre des livres
       this.resetBookOrder();
     }
   }
@@ -126,7 +127,6 @@ export class PageRechercheComponent {
     if (map) {
       this.mockBooks.sort((a, b) => a.map.localeCompare(b.map));
     } else {
-      // Si aucune catégorie n'est sélectionnée, réinitialisez l'ordre des livres
       this.resetBookOrder();
     }
   }
@@ -138,5 +138,15 @@ export class PageRechercheComponent {
     // @ts-ignore
     this.showMap = true;
   }
+  loadData() {
+    forkJoin({
+      authorsList: this.bookService.getAuthorList(),
+    }).subscribe({
+      next: (result) => {
+        const authorsListData= result.authorsList;
 
+        this.dataSouce = [...authorsListData];
+      }
+    })
+  }
 }
