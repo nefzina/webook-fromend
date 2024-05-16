@@ -5,7 +5,7 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {AuthenticationService} from "../../domain/services/authentication.service";
-import {Router} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
 import {MatIcon} from "@angular/material/icon";
 
@@ -13,7 +13,7 @@ import {MatIcon} from "@angular/material/icon";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatIcon, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, MatInputModule, FormsModule, MatButtonModule, MatIcon, ReactiveFormsModule, RouterLink, RouterLinkActive],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
