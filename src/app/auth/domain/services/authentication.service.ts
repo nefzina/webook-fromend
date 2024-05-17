@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {IAuthenticationService} from "./IAuthentication-service";
+import {IAuthenticationService} from "./interfaces/IAuthentication-service";
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {LoginRequestDto} from "../dtos/LoginRequestDto";
 import {User} from "../models/User";
 import {environment} from "../../../../environments/environment";
+import {TokenData} from "../models/TokenData";
 
 
 @Injectable({
@@ -33,11 +34,11 @@ export class AuthenticationService implements IAuthenticationService {
   }
 
   register(user: User): Observable<Boolean> {
-    return this.httpClient.post<any>(`${environment.API_URL}/register`,  JSON.stringify(user), {
+    return this.httpClient.post<any>(`${environment.API_URL}/register`, JSON.stringify(user), {
       headers: {
         "content-type": "application/json"
       },
-      withCredentials:true,
+      withCredentials: true,
       observe: "response"
     }).pipe(
       map(response => {
@@ -45,12 +46,9 @@ export class AuthenticationService implements IAuthenticationService {
       }))
   }
 
-  /*
   logout(): void {
-    // Supprimez l'indicateur de connexion de l'utilisateur du stockage local
     localStorage.removeItem('loggedIn');
 
-    this.httpClient.post<any>("http://localhost:8080/logout", { withCredentials: true }).subscribe();
+    // this.httpClient.post<any>("http://localhost:8080/logout", { withCredentials: true }).subscribe();
   }
-*/
 }

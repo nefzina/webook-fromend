@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {LoginRequestDto} from "../dtos/LoginRequestDto";
+import {LoginRequestDto} from "../../dtos/LoginRequestDto";
 
 export interface IAuthenticationService {
   authenticate(user: LoginRequestDto): Observable<boolean>;
