@@ -1,14 +1,14 @@
 import {CanActivateFn, Router} from "@angular/router";
 import {inject} from "@angular/core";
-import {jwtDecode} from "jwt-decode";
+import {TokenService} from "../domain/services/token.service";
 
 export const AuthGuard: CanActivateFn = (): boolean => {
-  const router: Router = inject(Router);
-  const token = localStorage.getItem("token");
-  console.log(token)
 
-  if (token && jwtDecode(token)) {
-    console.log(jwtDecode(token));
+  const router: Router = inject(Router);
+  const tokenService: TokenService = inject(TokenService);
+
+  const loggedIn = localStorage.getItem("loggedIn");
+  if (loggedIn === "true" && !tokenService.tokenExpired()) {
     return true;
   } else {
     router.navigate(['/login']);
