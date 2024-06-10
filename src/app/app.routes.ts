@@ -7,12 +7,14 @@ import {LoginComponent} from "./auth/ui/login/login.component";
 import {RegisterComponent} from "./auth/ui/register/register.component";
 import {GuideComponent} from "./guide/guide.component";
 import {AuthGuard} from "./auth/application/AuthGuard";
+import {AddBookComponent} from "./add-book/add-book.component";
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'page-book/:id', component: BookDetailComponent},
   { path: 'recherche', component: PageRechercheComponent },
+  { path: 'addBook', component: AddBookComponent },
 
   {
     path: 'profile',
@@ -35,6 +37,10 @@ export const routes: Routes = [
   {
     path:'login',
     component: LoginComponent
+  },
+  {
+    path:'addBook',
+    component: AddBookComponent
   },
   {
     path:'guide',

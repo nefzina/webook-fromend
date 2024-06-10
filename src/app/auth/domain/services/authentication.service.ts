@@ -16,6 +16,7 @@ export class AuthenticationService implements IAuthenticationService {
   }
 
   authenticate(user: LoginRequestDto): Observable<boolean> {
+    console.log(user);
     return this.httpClient.post<any>(`${environment.API_URL}/login`, JSON.stringify(user), {
       headers: {
         "content-type": "application/json"
@@ -26,6 +27,7 @@ export class AuthenticationService implements IAuthenticationService {
       map(response => {
         if (response.status === 200) {
           localStorage.setItem('loggedIn', "true");
+           localStorage.setItem('userId',response.body.id); // pour stocker l'id de l'utilisateur
           return true;
         }
         return false;
@@ -33,8 +35,10 @@ export class AuthenticationService implements IAuthenticationService {
   }
 
   register(user: User): Observable<Boolean> {
-    return this.httpClient.post<any>(`${environment.API_URL}/register`, user, {
+    console.log(user);
+    return this.httpClient.post<any>(`${environment.API_URL}/register`, JSON.stringify(user), {
       headers: {
+
         "content-type": "application/json"
       },
       withCredentials:true,
@@ -45,7 +49,13 @@ export class AuthenticationService implements IAuthenticationService {
       }))
   }
 
-  /*
+  getUserId(): string {
+       return localStorage.getItem('userId')??'';
+  }
+  isLoggedIn(): boolean {
+    return localStorage.getItem('loggedIn') === "true";
+  }
+/*
   logout(): void {
     // Supprimez l'indicateur de connexion de l'utilisateur du stockage local
     localStorage.removeItem('loggedIn');
