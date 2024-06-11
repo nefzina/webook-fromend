@@ -10,6 +10,8 @@ import {BookService} from "../book/domain/service/book.service";
 import {Book} from "../book/domain/models/book";
 import {Category} from "../add-book/category.model";
 import {CategoryService} from "../services/category.service";
+import {UserIdService} from "../services/userId.service";
+import {UploadService} from "../services/upload.service";
 
 @Component({
   selector: 'app-add-book',
@@ -27,13 +29,18 @@ export class AddBookComponent implements OnInit {
   bookForm: FormGroup;
   categories: Category[] = [];
   selectedImage: string | ArrayBuffer | null = null;
+  id:number=0;
+
 
   constructor(
     private fb: FormBuilder,
     private addBookService: AddBookService,
     private router: Router,
     private categoryService: CategoryService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private userIdService: UserIdService,
+    private uploadService: UploadService
+
   ) {
     this.bookForm = this.fb.group({
       name: ['', Validators.required],
@@ -44,18 +51,28 @@ export class AddBookComponent implements OnInit {
       isbn: [''],
       coverImage: [''],
       categoryId: ['', Validators.required]
+
     });
+
   }
+  newBook!:Book;
 
   ngOnInit(): void {
     this.loadCategories();
+    this.userIdService.getUserId.subscribe(id => {
+      this.id = id;
+      console.log('User ID:',this.id);
+    });
   }
 
 
 
   loadCategories(): void {
     this.categoryService.getCategories().subscribe({
-      next: (data) => this.categories = data,
+      next: (data) => {
+        this.categories = data,
+          console.log('Categories loaded:',this.categories);
+      },
       error: (err) => console.error(err)
     });
   }
@@ -100,17 +117,30 @@ export class AddBookComponent implements OnInit {
     }
   }
 
+  uploadFile(event: Event) {
+    this.uploadService.uploadFile(event).subscribe(
+      {
+        next: (res) => {
+          this.newBook.book_image = res;
 
+        },
+        error: (err) => console.error('Upload error', err),
+      }
+    )
+  }
 
   onSubmit(): void {
     if (this.bookForm.valid) {
      // const ownerId = this.authService.getUserId(); // j'utilise le service d'authentification pour obtenir l'ID de l'utilisateur connecté
-
+/*
         const formData = new FormData();
         for (const key in this.bookForm.value) {
           formData.append(key, this.bookForm.value[key]);
-        }
-        this.addBookService.createBook(formData).subscribe({
+        }*/
+
+        const newBook:Book= this.bookForm.value;
+
+        this.addBookService.createBook(newBook).subscribe({
           next: () => this.router.navigate(['/books']),
           error: (err) => console.error(err)
         });
