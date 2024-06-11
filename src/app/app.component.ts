@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {ProfileComponent} from "./profile/ui/profile.component";
@@ -17,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import {RegisterComponent} from "./auth/ui/register/register.component";
 import { MatFormField} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
+import {AddBookComponent} from "./add-book/add-book.component";
 
 
 @Component({
@@ -36,7 +38,8 @@ import {HttpClientModule} from "@angular/common/http";
     MatDividerModule,
     MatButtonModule,
     MatGridListModule,
-    LoginComponent],
+    LoginComponent,
+    AddBookComponent],
 
 
   templateUrl: './app.component.html',
