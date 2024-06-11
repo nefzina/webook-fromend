@@ -14,7 +14,14 @@
   <div class="personalInfo">
     <div class="avatar">
       <img [src]="user.profilePicture == null ? defaultProfilePic : user.profilePicture" alt="your profile picture">
-      <button class="addAvatarBtn"><img src="./assets/plus.png" alt="modifier avatar"></button>
+      <input
+        hidden
+        type="file"
+
+        #uploader
+        (change)="uploadFile($event)"
+      />
+      <button class="addAvatarBtn" (click)="uploader.click()"><img src="./assets/plus.png" alt="modifier avatar"></button>
     </div>
 
     <button class="editDataBtn">
