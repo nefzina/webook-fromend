@@ -3,6 +3,7 @@ import {ApiService} from "../../../services/api.service";
 import {Observable, tap} from "rxjs";
 import {User} from "../models/User";
 import {ICategory} from "../interface/ICategory";
+import {IUser} from "../interface/IUser";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,9 @@ export class ProfileService {
     return this.apiService.getById<ICategory>(id, 'categories').pipe(
       tap(response => this.category = response)
     )
+  }
+
+  updateUser(id: number){
+    return this.apiService.put<IUser>('users', id, this.user)
   }
 }

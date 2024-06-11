@@ -5,12 +5,14 @@ import {IMedia} from "../interface/IMedia";
 
 export class User implements IUser {
   constructor(
+    public id: number,
     public username: string,
     public email: string,
-    public zip_code: string,
-    public city: string,
+    public zip_code?: string,
+    public city?: string,
     public preferences: ICategory[] = [],
     public books: Book[] = [],
     public profilePicture?: IMedia,
-  ) { }
+  ) {
+  }
 }

@@ -21,6 +21,13 @@ export class ApiService {
       "Authorization": `Bearer ${token}`
     })
   }
+  private getAuthUploadHeaders(): HttpHeaders {
+    const token = localStorage.getItem("authToken")
+    return new HttpHeaders({
+      // "Content-type": "multipart/form-data",
+      "Authorization": `Bearer ${token}`
+    })
+  }
 
   get<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${environment.API_URL}/${endpoint}`, {
@@ -43,7 +50,14 @@ export class ApiService {
     });
   }
 
-  put<T>(endpoint: string, id: number, body: any, headers?: HttpHeaders): Observable<T> {
+  postUpload<T>(endpoint: string, body: FormData): Observable<T> {
+    return this.http.post<T>(`${environment.API_URL}/${endpoint}`, body, {
+      headers: this.getAuthUploadHeaders(),
+      withCredentials: true,
+    });
+  }
+
+  put<T>(endpoint: string, id: number, body: IUser | Book): Observable<T> {
     return this.http.put<T>(`${environment.API_URL}/${endpoint}/${id}`, body, {
       headers: this.getAuthHeaders(),
       withCredentials: true,

@@ -4,11 +4,9 @@ import {jwtDecode} from "jwt-decode";
 
 export const AuthGuard: CanActivateFn = (): boolean => {
   const router: Router = inject(Router);
-  const token = localStorage.getItem("token");
-  console.log(token)
+  const isLoggedIn = localStorage.getItem("loggedIn");
 
-  if (token && jwtDecode(token)) {
-    console.log(jwtDecode(token));
+  if (isLoggedIn === 'true') {
     return true;
   } else {
     router.navigate(['/login']);

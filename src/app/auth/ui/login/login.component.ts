@@ -8,6 +8,7 @@ import {AuthenticationService} from "../../domain/services/authentication.servic
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
 import {MatIcon} from "@angular/material/icon";
+import {UserIdService} from "../../../services/userId.service";
 
 
 @Component({
@@ -24,7 +25,7 @@ export class LoginComponent {
   hidePassword = true;
 
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private authService: AuthenticationService, private router: Router, private userIdService: UserIdService) {
   }
 
 
@@ -34,19 +35,22 @@ export class LoginComponent {
       const loginDto = new LoginRequestDto(this.email, this.password);
 
       this.authService.authenticate(loginDto).subscribe(
-        (isLoggedIn: any) => {
-          if (isLoggedIn) {
-            this.router.navigate(['/home']);
+        (isUserId: number | null) => {
+          if (isUserId) {
+            this.userIdService.setUserId(isUserId);
+            // this.router.navigate(['/home']);
+            // ToDo: navigate to last visited page
           } else {
-            this.loginError = "Nom d'utilisateur ou mot de passe incorrect.";
+            this.loginError = "Email ou mot de passe incorrect.";
           }
         },
         (error) => {
           this.loginError = "Une erreur s'est produite lors de la tentative de connexion.";
         }
-      );
+      )
+      ;
     } else {
-      console.error('Username or password is empty'); // Affiche une erreur si le nom d'utilisateur ou le mot de passe est vide
+      console.error('Les champs email et mot de passe sont obligatoires.'); // Affiche une erreur si le nom d'utilisateur ou le mot de passe est vide
     }
   }
 
