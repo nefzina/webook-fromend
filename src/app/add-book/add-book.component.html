@@ -1,0 +1,48 @@
+<div class="background_image_2">
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-container">
+    <section class="section_1_discorver">
+      <div class="card mb-5 mx-auto border-0" style="max-width: 600px;">
+        <div class="row g-0 d-flex justify-content-center align-items-center">
+          <div class="col-md-5"></div>
+        </div>
+      </div>
+      <div class="col-md-6 offset-1">
+        <div class="card-body">
+          <hr>
+          <h2>Renseignez les informations suivantes</h2>
+          <label for="coverImage">Couverture du livre:</label><br>
+          <input type="file" id="coverImage" formControlName="coverImage" (change)="onFileSelected($event)"><br>
+          <img [src]="selectedImage" class="img-fluid rounded-0" alt="Cover Image" *ngIf="selectedImage">
+
+          <label for="name">Titre du livre:</label><br>
+          <input type="text" id="name" formControlName="name"><br>
+          <label for="author">Auteur:</label><br>
+          <input type="text" id="author" formControlName="author"><br>
+          <label for="edition">Edition:</label><br>
+          <input type="text" id="edition" formControlName="edition"><br>
+          <label for="isbn">ISBN:</label><br>
+          <input type="text" id="isbn" formControlName="isbn"><br>
+          <label for="review">Commentaire:</label><br>
+          <input type="text" id="review" formControlName="review"><br>
+          <label for="categoryId">Catégorie:</label><br>
+          <select id="categoryId" formControlName="categoryId">
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.type }}</option>
+          </select><br>
+        </div>
+      </div>
+    </section>
+    <section class="section_2_menu d-flex flex-column justify-content-center align-items-center mt-5">
+      <hr>
+      <h2>Résumé</h2>
+      <div class="container menu">
+        <label for="resume">Résumé:</label><br>
+        <input type="text" id="resume" formControlName="resume"><br>
+      </div>
+      <nav class="container">
+        <div class="row d-flex justify-content-center mt-4">
+          <button type="submit">Enregistrer</button>
+        </div>
+      </nav>
+    </section>
+  </form>
+</div>
