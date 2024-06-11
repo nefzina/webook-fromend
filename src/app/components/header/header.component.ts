@@ -21,14 +21,14 @@ export class HeaderComponent {
   loggedUser: any;
   showFiller = false;
   constructor(private router: Router) {
-    const localUser = localStorage.getItem('loggedUser');
+    const localUser = localStorage.getItem('loggedIn');
     if(localUser != null) {
       this.loggedUser = JSON.parse(localUser);
     }
   }
 
   onLogoff() {
-    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('loggedIn');
     this.router.navigateByUrl('/login')
   }
 

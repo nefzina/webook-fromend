@@ -1,10 +1,15 @@
+// @ts-ignore
+
 import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../domain/services/profile.service";
 import {IUser} from "../domain/interface/IUser";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {response} from "express";
 import {ICategory} from "../domain/interface/ICategory";
+import {ApiService} from "../../services/api.service";
+import {UploadService} from "../../services/upload.service";
+import {IMedia} from "../domain/interface/IMedia";
+import {UserIdService} from "../../services/userId.service";
 
 @Component({
   selector: 'app-profile',
@@ -19,16 +24,34 @@ import {ICategory} from "../domain/interface/ICategory";
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit {
+  id: number = 0;
   user!: IUser;
-  defaultProfilePic: String = '../../../assets/profile.png'
+  defaultProfilePic: String = '../../../assets/profile.png';
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private apiService: ApiService,
+              private uploadService: UploadService, private userIdService: UserIdService) {
   }
 
   ngOnInit() {
-    this.profileService.getUserById(1).subscribe((response) => {
-      this.user = response;
-      console.log(response);
-    })
+    this.userIdService.getUserId.subscribe(id => {
+      this.id = id;
+    });
+    if (!!this.id) {
+      this.profileService.getUserById(this.id).subscribe((response) => {
+        this.user = response;
+      })
+    }
+  }
+
+  uploadFile(event: Event) {
+    this.uploadService.uploadFile(event).subscribe(
+      {
+        next: (res) => {
+          this.user.profilePicture = res;
+          this.profileService.updateUser(this.user.id);
+        },
+        error: (err) => console.error('Upload error', err),
+      }
+    )
   }
 }
