@@ -1,7 +1,9 @@
+import {IMedia} from "./IMedia";
+
 export interface Book {
   id: number,
   name: string,
-  image: string,
+  image: IMedia,
   author: string,
   edition: string,
   review: string,

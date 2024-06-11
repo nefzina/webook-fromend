@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {Category} from "../add-book/category.model";
+import {ApiService} from "./api.service";
+import {response} from "express";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
-  private baseUrl = 'http://localhost:8080/categories';
 
-  constructor(private http: HttpClient) { }
+categories!:Category[];
+  constructor(private apiService:ApiService) { }
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.baseUrl);
+    return this.apiService.get<Category[]>('categories').pipe(
+      tap(response => {
+        this.categories = response;
+
+        return response;
+      })
+  )
   }
 }
 

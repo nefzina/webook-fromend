@@ -4,6 +4,8 @@ import {catchError, Observable, of, map, tap} from "rxjs";
 import {FormControl, ɵValue} from "@angular/forms";
 import {Book} from "../book/domain/models/book";
 import { CommonModule } from '@angular/common';
+import {ApiService} from "./api.service";
+import {response} from "express";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +13,17 @@ import { CommonModule } from '@angular/common';
 export class AddBookService {
 
 
-  private baseUrl = 'http://localhost:8080/books';
+book!:Book;
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService:ApiService) { }
 
-  createBook(book: FormData): Observable<Book> {
-    return this.http.post<Book>(`${this.baseUrl}/`,book,{
-      withCredentials: true
-    });
+  createBook(book: Book): Observable<Book> {
+    return this.apiService.post<Book>('books',book).pipe(
+      tap(response=>{
+        this.book=response;
+        return response;
+      }))
+    ;
   }
 }
 
