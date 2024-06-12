@@ -19,18 +19,10 @@ export class UploadService {
     // Check if the input element has files
     if (input.files && input.files.length > 0) {
       const file: File = input.files[0];
-      console.log("event target files", file);
       return this.processFile(file);
-      // Check if file has been uploaded
-    //   return interval(500).pipe(
-    //     switchMap(() => {
-    //       return this.processFile(file);
-    //     }),
-    //     takeUntil(of(true))  // This can be modified to include your condition for stopping the interval
-    //   );
     } else {
       return new Observable<IMedia>((observer) => observer.complete()); // empty observable if no file is selected
-     }
+    }
   }
 
 // Runs after user uploads file;
@@ -38,7 +30,9 @@ export class UploadService {
     const formData = new FormData();
     formData.append('file', file);
     return this.apiService.postUpload<IMedia>("uploads", formData)
-      .pipe(tap(res => this.fileData = res),
+      .pipe(tap(res => {
+          return res
+        }),
         catchError(err => {
           console.error('Upload error', err);
           throw err;

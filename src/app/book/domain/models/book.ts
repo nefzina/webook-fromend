@@ -1,24 +1,29 @@
 import {IMedia} from "../../../profile/domain/interface/IMedia";
+import {ICategory} from "../../../profile/domain/interface/ICategory";
 
 export class Book{
-  book_id: number;
-  book_name: string;
-  book_image: IMedia;
-  book_author: string;
-  book_edition: string;
-  book_resume: string;
-  book_isbn: string;
-  book_review: string;
+  id: number;
+  name: string;
+  coverImage: IMedia;
+  author: string;
+  edition: string;
+  resume: string;
+  isbn: string;
+  review: string;
+  bookCategory: ICategory;
 
-  constructor(book_id: number, book_name: string, book_image: IMedia, book_author: string, book_edition: string, book_resume: string, book_isbn: string, book_review: string) {
-    this.book_id = book_id;
-    this.book_name = book_name;
-    this.book_image = book_image;
-    this.book_author = book_author;
-    this.book_edition = book_edition;
-    this.book_resume = book_resume;
-    this.book_isbn = book_isbn;
-    this.book_review = book_review;
+  constructor(book_id: number, book_name: string, book_image: IMedia, book_author: string,
+              book_edition: string, book_resume: string, book_isbn: string, book_review: string,
+              book_category:ICategory) {
+    this.id = book_id;
+    this.name = book_name;
+    this.coverImage = book_image;
+    this.author = book_author;
+    this.edition = book_edition;
+    this.resume = book_resume;
+    this.isbn = book_isbn;
+    this.review = book_review;
+    this.bookCategory=book_category;
   }
 
 
