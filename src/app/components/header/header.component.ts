@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {RouterLink, RouterLinkActive, Router} from "@angular/router";
+import {AuthenticationService} from "../../auth/domain/services/authentication.service";
 
 @Component({
   selector: 'app-header',
@@ -20,19 +21,21 @@ import {RouterLink, RouterLinkActive, Router} from "@angular/router";
 export class HeaderComponent {
   loggedUser: any;
   showFiller = false;
-  constructor(private router: Router) {
+
+  constructor(private router: Router, private authService: AuthenticationService) {
     const localUser = localStorage.getItem('loggedIn');
-    if(localUser != null) {
+    if (localUser != null) {
       this.loggedUser = JSON.parse(localUser);
     }
   }
 
   onLogoff() {
-    localStorage.removeItem('loggedIn');
+    this.authService.logout();
     this.router.navigateByUrl('/login')
   }
 
 }
+
 function myFunction() {
   var x = document.getElementById("myLinks");
   if (x) {
