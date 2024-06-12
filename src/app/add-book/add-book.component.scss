@@ -1,13 +1,38 @@
-
-
 .form-container {
-  max-width: 500px;
+  max-width: 900px; /* Largeur maximale pour accueillir les deux colonnes */
   margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-x: hidden;
+
 }
 
 
+.form-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-form {
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-column {
+  flex: 1; /* Permet à chaque colonne de prendre une place égale */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-column-reduced .card-body {
+  padding: 15px; /* Réduit le padding pour économiser de l'espace */
+}
+
+.card-body {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
@@ -17,22 +42,41 @@ form {
 label {
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
+ margin-bottom: -10px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="file"],
+select {
   width: 100%;
-  padding: 10px;
+  padding: 8px; /* Réduit le padding pour économiser de l'espace */
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
 }
 
 button {
-  background-color: teal;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
+
+    display: block; /* Fait en sorte que le bouton occupe toute la largeur de son conteneur */
+    width: 30%;
+    margin: 0 auto; /* Centre le bouton horizontalement */
+    background-color: teal;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  margin-bottom: 10px;
+  }
+
+
+  .img-fluid {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+textarea {
+  width: 100%;
+  min-height: 50px; /* Hauteur initiale */
+  resize: vertical; /* Permet à l'utilisateur de redimensionner le textarea verticalement */
 }

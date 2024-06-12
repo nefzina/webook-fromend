@@ -1,7 +1,7 @@
 <div class="profile">
   <div class="myLibrary">
     <h2>Ma bibliothèque</h2>
-    <button class="addBook">Ajouter</button>
+    <button routerLink="/addBook">Ajouter</button>
 
     <div class="bookList">
       <p class="noBooks" *ngIf="user.books?.length == 0; else bookList">Pas de livres encore dans votre bibliothèque</p>
