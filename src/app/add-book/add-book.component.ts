@@ -137,7 +137,7 @@ export class AddBookComponent implements OnInit {
     console.log("this.newBook", newBook);
     this.addBookService.createBook(newBook).subscribe({
       next: (res) => {
-        this.router.navigate(['/profile'])
+        this.router.navigate(['/home'])
         return res
       },
       error: (err) => console.error(err)
@@ -147,6 +147,7 @@ export class AddBookComponent implements OnInit {
   onSubmit(): void {
     if (this.bookForm.valid) {
       this.uploadFile();
+      this.router.navigate(['/home'])
     }
   }
 }
