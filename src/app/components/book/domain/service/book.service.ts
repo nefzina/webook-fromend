@@ -54,7 +54,7 @@ export class BookService {
     );
   }
 
-  getBooksByAuthor(authorId: EventTarget | null): Observable<Book[]> {
+  getBooksByAuthor(authorId: string): Observable<Book[]> {
     const apiURL = `http://localhost:8080/book/${authorId}`;
     return this.http.get(apiURL).pipe(
       map((response) => response as Book[]),
@@ -76,7 +76,7 @@ export class BookService {
     );
   }
 
-  getBooksByLocation(location: EventTarget | null) {
+  getBooksByLocation(location: string) {
     const apiURL = `http://localhost:8080/book/${location}`;
     return this.http.get(apiURL).pipe(
       map((response) => response as Book[]),

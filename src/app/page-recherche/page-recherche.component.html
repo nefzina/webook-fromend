@@ -28,18 +28,18 @@
 
 <div class="filters">
   <p>FILTRER par :</p>
-  <select name="category" (change)="onCategoryChange($event.target)">
+  <select name="category" (change)="onCategoryChange($event)">
     <option value="">- Catégory -</option>
     <option *ngFor="let category of categories" [value]="category">{{category}}</option>
   </select>
-  <--<select name="author" (change)="onAuthorChange($event.target)">
+  <select name="author" (change)="onAuthorChange($event)">
     <option value="">- Auteur -</option>
     <option *ngFor="let auteur of authors" [value]="auteur">{{auteur}}</option>
   </select>
-  <select name="map" (change)="onLocationChange($event.target)">
+  <select name="map" (change)="onLocationChange($event)">
     <option value="">- Localisation -</option>
     <option *ngFor="let location of locations" [value]="location">{{location}}</option>
-  </select>-->
+  </select>
 </div>
 
 <div class="container-resultat-recherche">
