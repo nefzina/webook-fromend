@@ -18,7 +18,10 @@ export class ProfileService {
 
   getUserById(id: number): Observable<User> {
     return this.apiService.getById<User>(id, 'users').pipe(
-      tap(response => this.user = response)
+      tap(response => {
+        this.user = response
+        console.log(response)
+      })
     )
   }
 

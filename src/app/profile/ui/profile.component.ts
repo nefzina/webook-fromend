@@ -5,11 +5,10 @@ import {ProfileService} from "../domain/services/profile.service";
 import {IUser} from "../domain/interface/IUser";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {ICategory} from "../domain/interface/ICategory";
 import {ApiService} from "../../services/api.service";
 import {UploadService} from "../../services/upload.service";
-import {IMedia} from "../domain/interface/IMedia";
 import {UserIdService} from "../../services/userId.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -53,5 +52,10 @@ export class ProfileComponent implements OnInit {
         error: (err) => console.error('Upload error', err),
       }
     )
+  }
+
+  getBookCoverUrl(filename: string): string {
+    console.log(filename)
+    return `${environment.API_URL}/uploads/${filename}`;
   }
 }

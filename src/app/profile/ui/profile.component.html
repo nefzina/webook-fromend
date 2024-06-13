@@ -6,6 +6,9 @@
     <div class="bookList">
       <p class="noBooks" *ngIf="user.books?.length == 0; else bookList">Pas de livres encore dans votre bibliothèque</p>
       <ng-template #bookList>
+        <div *ngFor="let book of user.books">
+          <img [src]="getBookCoverUrl(book.coverImage.fileName)" [alt]="book.name">
+        </div>
         <p *ngFor="let book of user.books">{{ book }}</p>
       </ng-template>
     </div>
