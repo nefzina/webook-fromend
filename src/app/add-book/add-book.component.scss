@@ -1,3 +1,10 @@
+@use "variables" as v;
+
+.background_image_2{
+  min-height: v.$min-body-height;
+  background-color: v.$light-green;
+}
+
 .form-container {
   max-width: 900px; /* Largeur maximale pour accueillir les deux colonnes */
   margin: 0 auto;

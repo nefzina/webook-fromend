@@ -39,15 +39,12 @@
         </div>
         <div class="rightContainer">
             <p>Preferences</p>
-<!--            <div class="categoryList">-->
-<!--                <button *ngFor="let category of categories">{{ category.type }}</button>-->
-<!--            </div>-->
-
                 <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" [multiple]="true">
                     @for (category of categories; track category) {
                         <mat-chip-option [selected]="isCategorySelected(category)" >{{category.type}}</mat-chip-option>
                     }
                 </mat-chip-listbox>
         </div>
+<!--      <button (click)="updateUser()">Enregistrer</button>-->
     </div>
 </div>
