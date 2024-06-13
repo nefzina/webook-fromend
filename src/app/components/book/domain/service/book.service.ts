@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Book} from "../models/book";
 import {HttpClient} from "@angular/common/http";
-import {catchError, Observable, of, tap} from "rxjs";
+import {catchError, map, Observable, of, tap} from "rxjs";
+import {Author} from "../models/author";
 
 @Injectable({
   providedIn: 'root'
@@ -26,19 +27,53 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  getAuthors(){
-      const authors = this.mockBooks.map(book=> book.author);
-      return [new Set(authors)]
-  }
-  getBookById(id: number) {
-      return this.mockBooks.find(book => book.id === id);
-  }
-
-  getBookList(config: string): Observable<Book[]> {
-    return this.http.get<Book[]>('http://localhost:8080').pipe(
+  getBookList(): Observable<Book[]> {
+    return this.http.get<Book[]>('http://localhost:8080/book').pipe(
       tap((bookList) => console.table(bookList)),
       catchError((error) => {
         console.log(error);
+        return of([]);
+      })
+    );
+  }
+  getAuthorList(): Observable<Author[]> {
+    return this.http.get<Author[]>('http://localhost:8080/book/authors').pipe(
+      tap((authorList) => console.table(authorList)),
+      catchError((error) => {
+        console.log(error);
+        return of([]);
+      })
+    );
+  }
+
+  getBooksByAuthor(authorId: string): Observable<Book[]> {
+    const apiURL = `http://localhost:8080/book/${authorId}`;
+    return this.http.get(apiURL).pipe(
+      map((response) => response as Book[]),
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des livres :', error);
+        return of([]);
+      })
+    );
+  }
+
+  getBooksByCategory(category: string) {
+    const apiURL = `http://localhost:8080/book/${category}`;
+    return this.http.get(apiURL).pipe(
+      map((response) => response as Book[]),
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des livres :', error);
+        return of([]);
+      })
+    );
+  }
+
+  getBooksByLocation(location: string) {
+    const apiURL = `http://localhost:8080/book/${location}`;
+    return this.http.get(apiURL).pipe(
+      map((response) => response as Book[]),
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des livres :', error);
         return of([]);
       })
     );
