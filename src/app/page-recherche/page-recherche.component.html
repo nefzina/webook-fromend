@@ -26,6 +26,10 @@
   <button  (click)="showMap()">Afficher carte</button>
 </div>
 
+<div *ngIf="showMapComponent" class="container">
+  <app-map></app-map>
+</div>
+
 <div class="filters">
   <p>FILTRER par :</p>
   <select name="category" (change)="onCategoryChange($event.target)">

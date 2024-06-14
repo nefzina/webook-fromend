@@ -19,6 +19,7 @@ import {RegisterComponent} from "./auth/ui/register/register.component";
 import { MatFormField} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {AddBookComponent} from "./add-book/add-book.component";
+import {MapComponent} from "./map/map.component";
 
 
 @Component({
@@ -39,7 +40,8 @@ import {AddBookComponent} from "./add-book/add-book.component";
     MatButtonModule,
     MatGridListModule,
     LoginComponent,
-    AddBookComponent],
+    AddBookComponent,
+    MapComponent],
 
 
   templateUrl: './app.component.html',

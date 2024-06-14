@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {BookService} from "../components/book/domain/service/book.service";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {AsyncPipe, CommonModule, NgForOf} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {async, map, Observable, startWith} from "rxjs";
+import {MapComponent} from "../map/map.component";
 
 export interface BookGroup {
   name: string;
@@ -31,7 +32,9 @@ export const _filter = (opt: string[], value: string): string[] => {
     MatButtonModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    AsyncPipe
+    AsyncPipe,
+    MapComponent,
+    CommonModule
   ],
   templateUrl: './page-recherche.component.html',
     styleUrl: './page-recherche.component.scss'
@@ -49,8 +52,9 @@ export class PageRechercheComponent {
     filterBook = false;
     suggestions: string[] = this.mockBooks; // Remplacez ceci par vos données
     filteredSuggestions: string[] = [];
+    showMapComponent = false;
 
-    lat: number = 48.8566;
+  lat: number = 48.8566;
     lng: number = 2.3488;
     zoom: number = 12;
 
@@ -134,9 +138,8 @@ export class PageRechercheComponent {
   private resetBookOrder() {
 
   }
-  showMap() {
-    // @ts-ignore
-    this.showMap = true;
+  showMap(): void {
+    this.showMapComponent = !this.showMapComponent;
+    console.log(this.showMapComponent)
   }
-
 }
