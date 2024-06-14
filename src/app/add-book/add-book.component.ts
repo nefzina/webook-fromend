@@ -5,7 +5,6 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {AuthenticationService} from "../auth/domain/services/authentication.service";
 import {Router} from "@angular/router";
 import {passwordMatchValidator} from "../auth/application/passwordMatch";
-import {AddBookService} from "../services/AddBook.service";
 import {BookService} from "../book/domain/service/book.service";
 import {Book} from "../book/domain/models/book";
 import {Category} from "./category.model";
@@ -13,6 +12,7 @@ import {CategoryService} from "../services/category.service";
 import {UserIdService} from "../services/userId.service";
 import {UploadService} from "../services/upload.service";
 import {IMedia} from "../profile/domain/interface/IMedia";
+import {AddBookService} from "../services/addBook.service";
 
 @Component({
   selector: 'app-add-book',

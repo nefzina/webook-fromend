@@ -1,4 +1,5 @@
 import {IMedia} from "../../../../profile/domain/interface/IMedia";
+import {Author} from "./author";
 
 export class Book{
   book_id: number;
