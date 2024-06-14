@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
         next: (res) => {
           this.user.profilePicture = res;
           this.profileService.updateUser(this.id, this.user).subscribe((res) => {
-            console.log("profile pic", res);
             this.user = res;
           });
         },
