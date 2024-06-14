@@ -18,17 +18,23 @@
       display: grid;
       place-content: center;
     }
-    .addBook{
+
+    .addBook {
       position: absolute;
-      right: 30px;
+      right: 20px;
       top: 120px;
       padding: 15px 15px;
       border: 3px solid v.$medium-green;
       font-size: 1rem;
       cursor: pointer;
     }
-    .bookList {
 
+    .bookList {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(5rem, 100%), 1fr));
+      padding: 90px 10px 60px 10px;
+      place-items: center;
 
       .noBooks {
         width: 100%;
@@ -37,12 +43,15 @@
         height: 300px;
         display: grid;
         place-content: center;
-
       }
 
-      #bookList {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+      .imgContainer {
+        width: clamp(7rem, 3vw, 10rem);
+
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
       }
     }
   }
@@ -81,6 +90,7 @@
     .avatar > img {
       width: clamp(100px, 5vw, 120px);
       height: clamp(100px, 5vw, 120px);
+      border-radius: 50%;
     }
 
     .editDataBtn {
@@ -105,15 +115,16 @@
       font-size: 1.3rem;
     }
 
-    .preferencesContainer{
+    .preferencesContainer {
       margin-top: 30px;
 
-      .title{
+      .title {
         padding-bottom: 8px;
         margin-bottom: 20px;
         border-bottom: 1px solid #a9a9a9;
       }
-      .noPreferences{
+
+      .noPreferences {
         height: 70px;
         display: grid;
         place-content: center;
@@ -138,7 +149,7 @@
       flex-direction: column;
       align-items: center;
 
-      .title{
+      .title {
         text-align: center;
       }
     }

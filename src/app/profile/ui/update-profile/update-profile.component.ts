@@ -9,6 +9,7 @@ import {ICategory} from "../../domain/interface/ICategory";
 import {CommonModule} from "@angular/common";
 import {MatChipsModule} from '@angular/material/chips';
 import {type} from "node:os";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-update-profile',
@@ -19,7 +20,9 @@ import {type} from "node:os";
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.scss'
@@ -30,8 +33,21 @@ export class UpdateProfileComponent implements OnInit {
   category!: ICategory;
   defaultProfilePic: String = '../../../assets/profile.png'
   hide = true;
+  userForm: FormGroup;
+  regex = {
+    username: "^[a-zA-Z_.]{2,20}$",
+    password:"^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=*-])(?=\\S+$).{8,20}$",
+    city:"^[a-zA-Z-]{2,20}$",
+    zipCode:"^\\d{5}$"
+  }
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private fb: FormBuilder) {
+    this.userForm = this.fb.group({
+      username: ['', Validators.pattern(this.regex.username)],
+      password: ['', Validators.pattern(this.regex.password)],
+      city: ['', Validators.pattern(this.regex.city)],
+      zip_code: ['', Validators.pattern(this.regex.zipCode)]
+    });
   }
 
   ngOnInit() {
@@ -46,4 +62,11 @@ export class UpdateProfileComponent implements OnInit {
 
   isCategorySelected(category: ICategory): boolean {
     return !!this.user.preferences.find(pref => pref.type === category.type);
-  }}
+  }
+
+  updateUser(){
+    if(this.userForm.valid){
+      console.log(this.userForm)
+    }
+  }
+}

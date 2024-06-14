@@ -25,19 +25,19 @@ export class ProfileService {
     )
   }
 
-  getCategories():Observable<ICategory[]> {
+  getCategories(): Observable<ICategory[]> {
     return this.apiService.get<ICategory[]>('categories').pipe(
       tap(response => this.categories = response)
     )
   }
 
-  getCategoryById(id:number):Observable<ICategory> {
+  getCategoryById(id: number): Observable<ICategory> {
     return this.apiService.getById<ICategory>(id, 'categories').pipe(
       tap(response => this.category = response)
     )
   }
 
-  updateUser(id: number){
-    return this.apiService.put<IUser>('users', id, this.user)
+  updateUser(id: number, user: User) {
+    return this.apiService.put<IUser>('users', id, user)
   }
 }

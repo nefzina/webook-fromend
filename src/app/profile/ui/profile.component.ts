@@ -47,7 +47,10 @@ export class ProfileComponent implements OnInit {
       {
         next: (res) => {
           this.user.profilePicture = res;
-          this.profileService.updateUser(this.user.id);
+          this.profileService.updateUser(this.id, this.user).subscribe((res) => {
+            console.log("profile pic", res);
+            this.user = res;
+          });
         },
         error: (err) => console.error('Upload error', err),
       }
@@ -55,7 +58,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getBookCoverUrl(filename: string): string {
-    console.log(filename)
     return `${environment.API_URL}/uploads/${filename}`;
   }
 }
