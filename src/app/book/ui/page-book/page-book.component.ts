@@ -6,9 +6,10 @@ import {NgForOf} from "@angular/common";
 import {ActivatedRoute, RouterLink, RouterLinkActive} from "@angular/router";
 import {Book} from "../../domain/models/book";
 import {UploadService} from "../../../services/upload.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
-  selector: 'app-page-books',
+  selector: 'app-page-book',
   standalone: true,
   imports: [
     RouterLink,
@@ -41,6 +42,23 @@ export class PageBookComponent implements OnInit{
   }
 
 
+  uploadFile(event: Event) {
+    this.uploadService.uploadFile(event).subscribe(
+      {
+        next: (res) => {
+          this.book.coverImage = res;
+          this.bookService.getBookById(this.id).subscribe((res) => {
+            this.book = res;
+          });
+        },
+        error: (err) => console.error('Upload error', err),
+      }
+    )
+  }
+
+  getBookCoverUrl(filename: string): string {
+    return `${environment.API_URL}/uploads/${filename}`;
+  }
 
 
 }

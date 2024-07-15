@@ -11,7 +11,7 @@ import {response} from "express";
 })
 export class CategoryService {
 
-categories!:Category[];
+  categories!:Category[];
   constructor(private apiService:ApiService) { }
 
   getCategories(): Observable<Category[]> {
@@ -21,14 +21,6 @@ categories!:Category[];
 
         return response;
       })
-  )
+    )
   }
 }
-
-
-
-
-
-
-
-

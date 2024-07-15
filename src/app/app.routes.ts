@@ -8,6 +8,7 @@ import {GuideComponent} from "./guide/guide.component";
 import {AuthGuard} from "./auth/application/AuthGuard";
 import {AddBookComponent} from "./book/ui/add-book/add-book.component";
 import {PageBookComponent} from "./book/ui/page-book/page-book.component";
+import {UpdateBookComponent} from "./book/ui/update-book/update-book.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'page-book/:id', component: PageBookComponent },
   {path: 'recherche', component: PageRechercheComponent},
   {path: 'addBook', component: AddBookComponent, canActivate: [AuthGuard]},
+  {path: 'updateBook/:id', component: UpdateBookComponent},
   {
     path: 'profile',
     loadComponent: () => import('./profile/ui/profile.component')

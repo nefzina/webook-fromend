@@ -24,77 +24,29 @@ import {environment} from "../../../../environments/environment";
 })
 export class UpdateBookComponent implements OnInit {
 
-  bookForm: FormGroup;
+  book!: Book;
   categories: Category[] = [];
   selectedImage: string | ArrayBuffer | null = null;
   coverImage: IMedia | null = null;
   fileEvent!: Event;
-  bookId: number = 0;
+  id: number = 0;
+  selectedFile: File | null =null;
 
 
   constructor(
-    private fb: FormBuilder,
     private bookService: BookService,
-    private categoryService: CategoryService,
     private uploadService: UploadService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.bookForm = this.fb.group({
-      name: ['', Validators.required],
-      author: ['', Validators.required],
-      edition: [''],
-      review: [''],
-      resume: [''],
-      isbn: [''],
-      coverImage: [''],
-      categoryId: ['', Validators.required]
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get('id')!;
+    this.bookService.getBookById(this.id).subscribe((response) => {
+      this.book = response;
     });
   }
 
-  ngOnInit(): void {
-    this.loadCategories();
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.bookId = +id;
-        this.loadBookDetails(this.bookId);
-      }
-    });
-  }
 
-  loadCategories(): void {
-    this.categoryService.getCategories().subscribe({
-      next: (data: Category[]) => this.categories = data,
-      error: (err) => console.error(err)
-    });
-  }
-
-  loadBookDetails(bookId: number): void {
-    this.bookService.getBookById(bookId).subscribe({
-      next: (book: { [x: string]: any; coverImage?: any; }) => {
-        this.bookForm.patchValue(book);
-        this.selectedImage = book.coverImage?.url || null;
-      },
-      error: (err) => console.error(err)
-    });
-  }
-
-  onFileSelected(event: Event): void {
-    this.fileEvent = event;
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result;
-        if (result !== undefined) {
-          this.selectedImage = result;
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  }
 
   uploadFile() {
     this.uploadService.uploadFile(this.fileEvent).subscribe({
@@ -107,27 +59,33 @@ export class UpdateBookComponent implements OnInit {
   }
 
   updateBook() {
-    const updatedBook: Book = this.bookForm.value;
-    if (this.coverImage) {
-      updatedBook.coverImage = this.coverImage;
-      updatedBook.bookCategory = this.categories[this.bookForm.get("categoryId")?.value - 1];
-    }
-    this.bookService.updateBook(updatedBook, this.bookId).subscribe({
-      next: () => this.router.navigate(['/home']),
-      error: (err) => console.error(err)
-    });
+    this.bookService.updateBook(this.id, this.book).subscribe(
+      () => {
+        console.log('Livre mis à jour avec succès');
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du livre', error);
+      }
+    );
   }
   getBookCoverUrl(filename: string): string {
     console.log(filename)
     return `${environment.API_URL}/uploads/${filename}`;
   }
-  onSubmit(): void {
-    if (this.bookForm.valid) {
-      if (this.fileEvent) {
-        this.uploadFile();
-      } else {
-        this.updateBook();
-      }
+  onSubmit() {
+    if (this.selectedFile) {
+      this.uploadService.uploadFile(this.fileEvent).subscribe(
+        {
+          next: (res) => {
+            this.book.coverImage = res;
+            this.updateBook();
+          },
+          error: (err) => console.error('Upload error', err),
+        }
+      );
+    } else {
+      this.updateBook();
     }
   }
+
 }

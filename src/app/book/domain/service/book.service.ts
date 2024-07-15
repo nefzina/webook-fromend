@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
 import {Book} from "../models/book";
 import {HttpClient} from "@angular/common/http";
-import {catchError,map, Observable, of, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of, tap} from "rxjs";
 import {ɵFormGroupValue, ɵTypedOrUntyped} from "@angular/forms";
 import {Author} from "../../../book/domain/models/author";
-import {ApiService} from "../../../services/api.service";
 import {environment} from "../../../../environments/environment";
+import {User} from "../../../profile/domain/models/User";
+import {ICategory} from "../../../profile/domain/interface/ICategory";
+import {ApiService} from "../../../services/api.service";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
+  book!: Book;
+  categories!: ICategory[];
+  category!: ICategory;
 
   bookList: Book[] | undefined;
 
@@ -28,11 +34,12 @@ export class BookService {
   ]
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private apiService: ApiService) { }
 
 
   getBookById(id: number): Observable<Book> {
-    const apiURL = `${environment.API_URL}/book/${id}`;
+    const apiURL = `${environment.API_URL}/books/${id}`;
     return this.http.get<Book>(apiURL).pipe(
       tap((book) => console.log(`Fetched book with id=${id}`)),
       catchError((error) => {
@@ -41,8 +48,11 @@ export class BookService {
       })
     );
   }
+
+
+
   getBookList(): Observable<Book[]> {
-    return this.http.get<Book[]>('http://localhost:8080/book').pipe(
+    return this.http.get<Book[]>('http:/localhost:8080/book').pipe(
       tap((bookList) => console.table(bookList)),
       catchError((error) => {
         console.log(error);
@@ -50,8 +60,10 @@ export class BookService {
       })
     );
   }
+
+
   getAuthorList(): Observable<Author[]> {
-    return this.http.get<Author[]>('http://localhost:8080/book/authors').pipe(
+    return this.http.get<Author[]>('http:/localhost:8080/book/authors').pipe(
       tap((authorList) => console.table(authorList)),
       catchError((error) => {
         console.log(error);
@@ -61,7 +73,7 @@ export class BookService {
   }
 
   getBooksByAuthor(authorId: string): Observable<Book[]> {
-    const apiURL = `http://localhost:8080/book/${authorId}`;
+    const apiURL = `http:/localhost:8080/book/${authorId}`;
     return this.http.get(apiURL).pipe(
       map((response) => response as Book[]),
       catchError((error) => {
@@ -72,7 +84,7 @@ export class BookService {
   }
 
   getBooksByCategory(category: string) {
-    const apiURL = `http://localhost:8080/book/${category}`;
+    const apiURL = `http:/localhost:8080/book/${category}`;
     return this.http.get(apiURL).pipe(
       map((response) => response as Book[]),
       catchError((error) => {
@@ -83,7 +95,7 @@ export class BookService {
   }
 
   getBooksByLocation(location: string) {
-    const apiURL = `http://localhost:8080/book/${location}`;
+    const apiURL = `http:/localhost:8080/book/${location}`;
     return this.http.get(apiURL).pipe(
       map((response) => response as Book[]),
       catchError((error) => {
@@ -92,6 +104,27 @@ export class BookService {
       })
     );
   }
+  private bookId=new BehaviorSubject(0);
+  getBookId=this.bookId.asObservable();
 
+  setBookId(id:number){
+    this.bookId.next(id);
+  }
 
+  updateBook(id: number, book: Book): Observable<Book> {
+    const apiURL = `${environment.API_URL}/books/${id}`;
+    return this.http.put<Book>(apiURL, book).pipe(
+      tap((updatedBook) => console.log(`Updated book with id=${id}`)),
+      catchError((error) => {
+        console.error(`Erreur lors de la mise à jour du livre avec id=${id}`, error);
+        return of(book);
+      })
+    );
+  }
 }
+
+
+
+
+
+
