@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, tap} from "rxjs";
-import {Book} from "../book/domain/models/book";
-import {ApiService} from "./api.service";
+import {Book} from "../models/book";
+import {ApiService} from "../../../services/api.service";
 
 @Injectable({
   providedIn: 'root'

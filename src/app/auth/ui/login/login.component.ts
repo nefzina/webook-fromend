@@ -38,7 +38,7 @@ export class LoginComponent {
         (isUserId: number | null) => {
           if (isUserId) {
             this.userIdService.setUserId(isUserId);
-            // this.router.navigate(['/home']);
+             this.router.navigate(['/home']);
             // ToDo: navigate to last visited page
           } else {
             this.loginError = "Email ou mot de passe incorrect.";
