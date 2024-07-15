@@ -91,6 +91,7 @@
       width: clamp(100px, 5vw, 120px);
       height: clamp(100px, 5vw, 120px);
       border-radius: 50%;
+      object-fit: cover;
     }
 
     .editDataBtn {
