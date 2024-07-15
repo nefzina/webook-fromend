@@ -11,6 +11,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {type} from "node:os";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {UserIdService} from "../../../services/userId.service";
+import {Book} from "../../../book/domain/models/book";
+import {tap} from "rxjs";
+import {ApiService} from "../../../services/api.service";
 
 @Component({
   selector: 'app-update-profile',
@@ -87,10 +90,21 @@ export class UpdateProfileComponent implements OnInit {
     this.userForm.patchValue({
       categories: this.selectedCategories
     });
-    console.log(this.userForm);
+
     if (this.userForm.valid) {
-      console.log("inside the if")
       console.log(this.userForm)
+      if (this.userForm.get(["username"])?.value) this.user.username = this.userForm.get(["username"])?.value;
+      if (this.userForm.get(["city"])?.value) this.user.city = this.userForm.get(["city"])?.value;
+      if (this.userForm.get(["zip_code"])?.value) this.user.zip_code = this.userForm.get(["zip_code"])?.value;
+      if (this.userForm.get(["categories"])?.value) this.user.preferences = this.userForm.get(["categories"])?.value;
+
+
+      this.profileService.updateUser( this.id, this.user).subscribe({
+        next: (res) => {
+          return res
+        },
+        error: (err) => console.error(err)
+      });
     }
   }
 }
