@@ -25,18 +25,23 @@
       Critique :
       <textarea [(ngModel)]="book.review" name="review"></textarea>
     </label>
-    <label>
-      Catégorie :
-      <input type="text" [(ngModel)]="book.bookCategory.type" name="category">
-    </label>
-    <label for="categoryId">Catégorie:</label><br>
+
+    <!--  <label for="categoryId">Catégorie:</label><br>
     <select id="categoryId" formControlName="categoryId">
+       <option *ngFor="let category of categories" [value]="category.id">{{ category.type }}</option>
+     </select><br>
+     <label> -->
+    <label for="categoryId">Catégorie:</label><br>
+    <select id="categoryId" [(ngModel)]="book.bookCategory.id" name="categoryId" required>
       <option *ngFor="let category of categories" [value]="category.id">{{ category.type }}</option>
     </select><br>
+
     <label>
       Couverture :
-      <input type="file" (change)="uploadFile()">
+      <input type="file" (change)="uploadFile($event)">
+    <!--   </label>-->
     </label>
-    <button type="submit">Enregistrer</button>
-  </form>
-</div>
+      <button type="submit">Modifier</button>
+      <button [routerLink]="['/home', book.id]" class="home">Retour à l'accueil</button>
+    </form>
+  </div>

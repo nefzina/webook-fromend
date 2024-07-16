@@ -49,6 +49,10 @@ export class BookService {
     );
   }
 
+  updateBook(id: number, book: Book): Observable<Book> {
+    return this.apiService.put<Book>('books', id, book)
+  }
+
 
 
   getBookList(): Observable<Book[]> {
@@ -111,16 +115,7 @@ export class BookService {
     this.bookId.next(id);
   }
 
-  updateBook(id: number, book: Book): Observable<Book> {
-    const apiURL = `${environment.API_URL}/books/${id}`;
-    return this.http.put<Book>(apiURL, book).pipe(
-      tap((updatedBook) => console.log(`Updated book with id=${id}`)),
-      catchError((error) => {
-        console.error(`Erreur lors de la mise à jour du livre avec id=${id}`, error);
-        return of(book);
-      })
-    );
-  }
+
 }
 
 
