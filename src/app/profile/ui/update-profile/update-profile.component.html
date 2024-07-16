@@ -104,11 +104,9 @@
             <label for="categories">Préférences:</label>
             <mat-chip-listbox id="categories" class="mat-mdc-chip-set-stacked" aria-label="Color selection"
                               [multiple]="true">
-              @for (category of categories; track category) {
-                <mat-chip-option [selected]="isCategorySelected(category)" [value]="category.id"
+                <mat-chip-option *ngFor="let category of categories" [selected]="isCategorySelected(category)" [value]="category.id"
                                  (selectionChange)="onCategoryChange(category, $event.selected)">{{ category.type }}
                 </mat-chip-option>
-              }
             </mat-chip-listbox>
           </div>
         </div>

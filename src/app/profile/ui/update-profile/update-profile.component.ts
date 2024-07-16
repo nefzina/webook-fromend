@@ -15,6 +15,7 @@ import {Book} from "../../../book/domain/models/book";
 import {tap} from "rxjs";
 import {ApiService} from "../../../services/api.service";
 import {IPasswords} from "../../domain/interface/IPasswords";
+import {log} from "node:util";
 
 @Component({
   selector: 'app-update-profile',
@@ -75,7 +76,7 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   isCategorySelected(category: ICategory): boolean {
-    return this.user.preferences.includes(category);
+    return this.user?.preferences.some(preference => preference.id === category.id) ?? false;
   }
 
   passwordValidator(fg: FormGroup) {

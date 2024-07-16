@@ -15,14 +15,17 @@
   </div>
   <div class="personalInfo">
     <div class="avatar">
-      <img class="profilePic" [src]="user.profilePicture == null ? defaultProfilePic : getBookCoverUrl(user.profilePicture.filename)" alt="your profile picture">
+      <img class="profilePic"
+           [src]="user.profilePicture == null ? defaultProfilePic : getBookCoverUrl(user.profilePicture.filename)"
+           alt="your profile picture">
       <input
         hidden
         type="file"
         #uploader
         (change)="uploadFile($event)"
       />
-      <button class="addAvatarBtn" (click)="uploader.click()"><img src="./assets/plus.png" alt="modifier avatar"></button>
+      <button class="addAvatarBtn" (click)="uploader.click()"><img src="./assets/plus.png" alt="modifier avatar">
+      </button>
     </div>
 
     <button class="editDataBtn">
@@ -38,7 +41,9 @@
       <p class="title">Préférences</p>
       <p class="noPreferences" *ngIf="user.preferences.length == 0; else preferencesList">Ajoutez vos préférences</p>
       <ng-template #preferencesList>
-        <p class="preference" *ngFor="let pref of user.preferences">{{ pref.type }}</p>
+        <div class="prefList">
+          <p class="preference" *ngFor="let pref of user.preferences">{{ pref.type }}</p>
+        </div>
       </ng-template>
     </div>
   </div>
