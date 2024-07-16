@@ -38,7 +38,7 @@
       <p class="title">Préférences</p>
       <p class="noPreferences" *ngIf="user.preferences.length == 0; else preferencesList">Ajoutez vos préférences</p>
       <ng-template #preferencesList>
-        <p *ngFor="let pref of user.preferences">{{ pref }}</p>
+        <p class="preference" *ngFor="let pref of user.preferences">{{ pref.type }}</p>
       </ng-template>
     </div>
   </div>

@@ -20,7 +20,10 @@
 
         <button id="btn-login" mat-raised-button color="primary" (click)="login()">Se connecter</button>
         <mat-error *ngIf="loginError">{{ loginError }}</mat-error>
-        <a routerLinkActive="active" routerLink="/register">S'inscrire</a>
+        <div>
+          <a routerLinkActive="active" routerLink="/register">S'inscrire</a>
+          <button (click)="passwordForgotten">Mot de passe oublié</button>
+        </div>
 
       </form>
     </mat-card-content>

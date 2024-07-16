@@ -51,4 +51,8 @@ export class AuthenticationService implements IAuthenticationService {
     localStorage.removeItem('loggedIn');
     //this.httpClient.post<any>("http://localhost:8080/logout", { withCredentials: true }).subscribe();
   }
+
+  passwordForgotten() {
+
+  }
 }

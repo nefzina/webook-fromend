@@ -14,6 +14,7 @@ import {UserIdService} from "../../../services/userId.service";
 import {Book} from "../../../book/domain/models/book";
 import {tap} from "rxjs";
 import {ApiService} from "../../../services/api.service";
+import {IPasswords} from "../../domain/interface/IPasswords";
 
 @Component({
   selector: 'app-update-profile',
@@ -50,11 +51,13 @@ export class UpdateProfileComponent implements OnInit {
   constructor(private profileService: ProfileService, private fb: FormBuilder, private userIdService: UserIdService) {
     this.userForm = this.fb.group({
       username: ['', Validators.pattern(this.regex.username)],
-      password: ['', Validators.pattern(this.regex.password)],
       city: ['', Validators.pattern(this.regex.city)],
       zip_code: ['', Validators.pattern(this.regex.zip_code)],
-      categories: [null]
-    });
+      categories: [null],
+      oldPassword: ['', Validators.pattern(this.regex.password)],
+      newPassword: ['', Validators.pattern(this.regex.password)],
+      confirmPassword: ['', Validators.pattern(this.regex.password)],
+    }, {validators: this.passwordValidator});
   }
 
   ngOnInit() {
@@ -75,6 +78,22 @@ export class UpdateProfileComponent implements OnInit {
     return this.user.preferences.includes(category);
   }
 
+  passwordValidator(fg: FormGroup) {
+    const oldPassword = fg.get('oldPassword');
+    const newPassword = fg.get('newPassword');
+    const confirmPassword = fg.get('confirmPassword');
+
+    if (newPassword?.value === oldPassword?.value && oldPassword?.touched && newPassword?.touched) {
+      return {sameAsOldPassword: true};
+    }
+
+    if (newPassword?.value !== confirmPassword?.value && confirmPassword?.touched && newPassword?.touched) {
+      return {passwordsMismatch: true};
+    }
+
+    return null;
+  }
+
   onCategoryChange(category: ICategory, isSelected: boolean) {
     if (isSelected) {
       this.selectedCategories.push(category);
@@ -92,14 +111,26 @@ export class UpdateProfileComponent implements OnInit {
     });
 
     if (this.userForm.valid) {
-      console.log(this.userForm)
-      if (this.userForm.get(["username"])?.value) this.user.username = this.userForm.get(["username"])?.value;
-      if (this.userForm.get(["city"])?.value) this.user.city = this.userForm.get(["city"])?.value;
-      if (this.userForm.get(["zip_code"])?.value) this.user.zip_code = this.userForm.get(["zip_code"])?.value;
-      if (this.userForm.get(["categories"])?.value) this.user.preferences = this.userForm.get(["categories"])?.value;
+      if (this.userForm.get("username")?.value) this.user.username = this.userForm.get("username")?.value;
+      if (this.userForm.get("city")?.value) this.user.city = this.userForm.get("city")?.value;
+      if (this.userForm.get("zip_code")?.value) this.user.zip_code = this.userForm.get("zip_code")?.value;
+      if (this.userForm.get("categories")?.value) this.user.preferences = this.userForm.get("categories")?.value;
 
+      this.profileService.updateUser(this.id, this.user).subscribe({
+        next: (res) => {
+          return res
+        },
+        error: (err) => console.error(err)
+      });
+    }
 
-      this.profileService.updateUser( this.id, this.user).subscribe({
+    // patch password
+    if (this.userForm.valid && this.userForm.get("oldPassword")?.value && this.userForm.get("newPassword")?.value && this.userForm.get("confirmPassword")?.value) {
+      const passwords: IPasswords = {
+        oldPassword: this.userForm.get("oldPassword")?.value,
+        newPassword: this.userForm.get("newPassword")?.value,
+      }
+      this.profileService.patchPassword(this.id, passwords).subscribe({
         next: (res) => {
           return res
         },
