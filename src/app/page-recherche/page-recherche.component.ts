@@ -81,7 +81,7 @@ export class PageRechercheComponent implements OnInit {
   ngOnInit() {
     this.mockBooks = this.bookService.mockBooks;
     this.loadData()
-    //this.authors = this.bookService.getAuthors();
+    //this.suggestions = this.bookService.mockBooks.map(book => book.name);
     this.bookGroupOptions = this.bookFrom.get('bookGroup')!.valueChanges.pipe(
       startWith(''),
       map(value => this._filterGroup(value || '')),
@@ -96,7 +96,22 @@ export class PageRechercheComponent implements OnInit {
   selectSuggestion(suggestion: string): void {
     this.searchText = suggestion;
     this.filteredSuggestions = [];
+    this.searchBooks();
   }
+
+  searchBooks(): void {
+    if (this.searchText.trim() !== '') {
+      this.bookService.searchBooks(this.searchText).subscribe(
+        (books) => {
+          this.books = books;
+        },
+        (error) => {
+          console.error('Erreur lors de la récupération des livres :', error);
+        }
+      );
+    }
+  }
+
   private _filterGroup(value: string): BookGroup[] {
     if (value) {
       return this.bookGroups.map(group => ({ author: group.author, name: group.name }));

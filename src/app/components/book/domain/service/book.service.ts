@@ -78,5 +78,9 @@ export class BookService {
       })
     );
   }
+  searchBooks(keyword: string): Observable<Book[]> {
+    const apiURL = `http://localhost:8080/book/search?keyword=${keyword}`;
+    return this.http.get<Book[]>(apiURL);
+  }
 
 }

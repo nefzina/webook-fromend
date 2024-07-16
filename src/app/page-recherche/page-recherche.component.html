@@ -1,23 +1,6 @@
 <div class="container-barre-recherche">
   <p>Recherche avec un mot clé ou la carte</p>
-<!--  <form [formGroup]="bookFrom">-->
-<!--    <mat-form-field>-->
-<!--      <input type="text"-->
-<!--             matInput-->
-<!--             formControlName="bookGroup"-->
-<!--             required-->
-<!--             [matAutocomplete]="autoGroup"-->
-<!--             placeholder="Recherche avec mot clé ou code postal">-->
-<!--      <mat-autocomplete #autoGroup="matAutocomplete">-->
-<!--        <ng-container *ngFor="let group of bookGroupOptions | async">-->
-<!--          <mat-optgroup [label]="group.author">-->
-<!--            <mat-option *ngFor="let name of group.name" [value]="name">{{name}}</mat-option>-->
-<!--          </mat-optgroup>-->
-<!--        </ng-container>-->
-<!--      </mat-autocomplete>-->
-<!--    </mat-form-field>-->
-<!--  </form>-->
-  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()">
+  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()" (keyup.enter)="searchBooks()">
   <div *ngFor="let suggestion of filteredSuggestions">
     <div (click)="selectSuggestion(suggestion)">
       {{suggestion}}
