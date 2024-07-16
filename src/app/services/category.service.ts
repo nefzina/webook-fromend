@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
-import {Category} from "../add-book/category.model";
+import {Category} from "../book/ui/add-book/category.model";
 import {ApiService} from "./api.service";
 import {response} from "express";
 
@@ -11,7 +11,7 @@ import {response} from "express";
 })
 export class CategoryService {
 
-categories!:Category[];
+  categories!:Category[];
   constructor(private apiService:ApiService) { }
 
   getCategories(): Observable<Category[]> {
@@ -21,14 +21,6 @@ categories!:Category[];
 
         return response;
       })
-  )
+    )
   }
 }
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouterLink} from "@angular/router";
-import {BookService} from "../components/book/domain/service/book.service";
+import {BookService} from "../book/domain/service/book.service";
 import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
@@ -8,8 +8,8 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {forkJoin, map, Observable, startWith} from "rxjs";
-import {Author} from "../components/book/domain/models/author";
-import {Book} from "../components/book/domain/models/book";
+import {Author} from "../book/domain/models/author";
+import {Book} from "../book/domain/models/book";
 
 export interface BookGroup {
   name: string;
@@ -96,21 +96,21 @@ export class PageRechercheComponent implements OnInit {
   selectSuggestion(suggestion: string): void {
     this.searchText = suggestion;
     this.filteredSuggestions = [];
-    this.searchBooks();
+    // this.searchBooks();
   }
 
-  searchBooks(): void {
-    if (this.searchText.trim() !== '') {
-      this.bookService.searchBooks(this.searchText).subscribe(
-        (books) => {
-          this.books = books;
-        },
-        (error) => {
-          console.error('Erreur lors de la récupération des livres :', error);
-        }
-      );
-    }
-  }
+  // searchBooks(): void {
+  //   if (this.searchText.trim() !== '') {
+  //     this.bookService.searchBooks(this.searchText).subscribe(
+  //       (books) => {
+  //         this.books = books;
+  //       },
+  //       (error) => {
+  //         console.error('Erreur lors de la récupération des livres :', error);
+  //       }
+  //     );
+  //   }
+  // }
 
   private _filterGroup(value: string): BookGroup[] {
     if (value) {

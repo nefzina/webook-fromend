@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {BookService} from "../domain/service/book.service";
+import {BookService} from "../../domain/service/book.service";
 import {MatCardModule} from "@angular/material/card";
 import {NgForOf} from "@angular/common";
 import {Observable, switchMap} from "rxjs";
-import {Book} from "../domain/models/book";
+
 
 @Component({
   selector: 'app-book-detail',

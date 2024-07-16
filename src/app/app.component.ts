@@ -18,7 +18,7 @@ import {FormsModule} from "@angular/forms";
 import {RegisterComponent} from "./auth/ui/register/register.component";
 import { MatFormField} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
-import {AddBookComponent} from "./add-book/add-book.component";
+import {AddBookComponent} from "./book/ui/add-book/add-book.component";
 
 
 @Component({

@@ -2,17 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormGroup, FormControl, ReactiveFormsModule, FormBuilder, Validators} from "@angular/forms";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
-import {AuthenticationService} from "../auth/domain/services/authentication.service";
+import {AuthenticationService} from "../../../auth/domain/services/authentication.service";
 import {Router} from "@angular/router";
-import {passwordMatchValidator} from "../auth/application/passwordMatch";
-import {BookService} from "../book/domain/service/book.service";
-import {Book} from "../book/domain/models/book";
+import {passwordMatchValidator} from "../../../auth/application/passwordMatch";
+import {BookService} from "../../domain/service/book.service";
+import {Book} from "../../domain/models/book";
 import {Category} from "./category.model";
-import {CategoryService} from "../services/category.service";
-import {UserIdService} from "../services/userId.service";
-import {UploadService} from "../services/upload.service";
-import {IMedia} from "../profile/domain/interface/IMedia";
-import {AddBookService} from "../services/addBook.service";
+import {CategoryService} from "../../../services/category.service";
+import {UserIdService} from "../../../services/userId.service";
+import {UploadService} from "../../../services/upload.service";
+import {IMedia} from "../../../profile/domain/interface/IMedia";
+import {AddBookService} from "../../domain/service/addBook.service";
 
 @Component({
   selector: 'app-add-book',
