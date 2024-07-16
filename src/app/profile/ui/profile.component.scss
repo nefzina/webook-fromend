@@ -91,6 +91,7 @@
       width: clamp(100px, 5vw, 120px);
       height: clamp(100px, 5vw, 120px);
       border-radius: 50%;
+      object-fit: cover;
     }
 
     .editDataBtn {
@@ -116,7 +117,7 @@
     }
 
     .preferencesContainer {
-      margin-top: 30px;
+      margin-top: 50px;
 
       .title {
         padding-bottom: 8px;
@@ -128,6 +129,20 @@
         height: 70px;
         display: grid;
         place-content: center;
+      }
+
+      .prefList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+
+        .preference {
+          padding: 8px 10px;
+          background-color: v.$light-green;
+          border: 1px solid v.$medium-green;
+          font-size: 1rem;
+        }
       }
     }
   }
@@ -151,6 +166,11 @@
 
       .title {
         text-align: center;
+      }
+
+      .preferencesContainer > .prefList {
+
+        justify-content: center;
       }
     }
   }

@@ -54,7 +54,9 @@ export class LoginComponent {
     }
   }
 
+  passwordForgotten() {
 
+  }
 }
 
 

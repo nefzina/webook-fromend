@@ -4,6 +4,7 @@ import {Observable, tap} from "rxjs";
 import {User} from "../models/User";
 import {ICategory} from "../interface/ICategory";
 import {IUser} from "../interface/IUser";
+import {IPasswords} from "../interface/IPasswords";
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,9 @@ export class ProfileService {
 
   updateUser(id: number, user: User) {
     return this.apiService.put<IUser>('users', id, user)
+  }
+
+  patchPassword(id: number, passwords: IPasswords) {
+    return this.apiService.patch('users', id, passwords)
   }
 }

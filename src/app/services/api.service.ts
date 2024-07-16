@@ -6,6 +6,7 @@ import {IUser} from "../profile/domain/interface/IUser";
 import {environment} from "../../environments/environment";
 import {LoginRequestDto} from "../auth/domain/dtos/LoginRequestDto";
 import {User} from "../auth/domain/models/User";
+import {IPasswords} from "../profile/domain/interface/IPasswords";
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,13 @@ export class ApiService {
 
   put<T>(endpoint: string, id: number, body: IUser | Book): Observable<T> {
     return this.http.put<T>(`${environment.API_URL}/${endpoint}/${id}`, body, {
+      headers: this.getAuthHeaders(),
+      withCredentials: true,
+    });
+  }
+
+  patch<T>(endpoint: string, id: number, body: IPasswords): Observable<T> {
+    return this.http.patch<T>(`${environment.API_URL}/${endpoint}/${id}/pw`, body, {
       headers: this.getAuthHeaders(),
       withCredentials: true,
     });
