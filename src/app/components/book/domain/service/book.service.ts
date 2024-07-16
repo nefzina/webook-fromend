@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Book} from "../models/book";
+import {Book} from "../../../../book/domain/models/book";
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, Observable, of, tap} from "rxjs";
-import {Author} from "../models/author";
+import {Author} from "../../../../book/domain/models/author";
 
 @Injectable({
   providedIn: 'root'
