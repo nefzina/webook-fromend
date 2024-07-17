@@ -39,9 +39,15 @@
     <label>
       Couverture :
       <input type="file" (change)="uploadFile($event)">
-    <!--   </label>-->
+
     </label>
-      <button type="submit">Modifier</button>
-      <button [routerLink]="['/home', book.id]" class="home">Retour à l'accueil</button>
-    </form>
+    <div *ngIf="coverImage">
+      <img [src]="getBookCoverUrl(coverImage.filename)" alt="Couverture du livre" width="200">
+    </div>
+    <button type="submit">Enregistrer les modifications</button>
+    <button [routerLink]="['/home', book.id]" class="home">Retour à l'accueil</button>
+  </form>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
   </div>
+</div>

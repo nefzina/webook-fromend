@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { NgForOf, NgIf } from "@angular/common";
 import { Category } from "../add-book/category.model";
@@ -10,6 +10,8 @@ import { CategoryService } from "../../../services/category.service";
 import { BookService } from "../../domain/service/book.service";
 import {environment} from "../../../../environments/environment";
 import {UserIdService} from "../../../services/userId.service";
+import {ProfileService} from "../../../profile/domain/services/profile.service";
+import {IUser} from "../../../profile/domain/interface/IUser";
 
 @Component({
   selector: 'app-update-book',
@@ -29,37 +31,47 @@ import {UserIdService} from "../../../services/userId.service";
 export class UpdateBookComponent implements OnInit {
 
   book!: Book;
+  user!: IUser;
 
   coverImage: IMedia | null = null;
   fileEvent!: Event;
-  id: number = 0;
+  userId: number = 0;
+  bookId:number =0;
   selectedFile: File | null =null;
   categories: Category[] = [];
-
-
-
+  successMessage: string = '';
 
   constructor(
     private bookService: BookService,
     private userIdService: UserIdService,
     private categoryService: CategoryService,
     private uploadService: UploadService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private profileService: ProfileService,
+    private router: Router,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
     this.loadCategories();
+    this.bookId = +this.route.snapshot.paramMap.get('id')!;
+    this.bookService.getBookById(this.bookId).subscribe((response) => {
+      this.book = response;
+      this.coverImage = response.coverImage;
+    });
     this.userIdService.getUserId.subscribe(id => {
-      this.id = id;
-      console.log('User ID',this.id);
+      this.userId = id;
+      console.log('User ID', this.userId);
+
     });
-    if (!!this.id) {
-      this.id = +this.route.snapshot.paramMap.get('id')!;
-      this.bookService.getBookById(this.id).subscribe((response) => {
-        this.book = response;
-    });
+
+    if (!!this.userId) {
+      this.profileService.getUserById(this.userId).subscribe((response) => {
+        this.user = response;
+        this.book.owner = response;
+      })
+    }
   }
-}
 
 
 
@@ -74,20 +86,25 @@ export class UpdateBookComponent implements OnInit {
   }
 
   updateBook() {
-    if (!this.book.owner) {
-      this.userIdService.getUserId.subscribe(id => {
-      //  this.book.owner = UserIdService; // Assurez-vous que ownerId est correctement défini ici
-      });
-    }
-
-    this.bookService.updateBook(this.id, this.book).subscribe(
+    console.log("livre", this.book);
+    this.bookService.updateBook(this.bookId, this.book).subscribe(
       () => {
         console.log('Livre mis à jour avec succès');
+        this.successMessage = 'Livre mis à jour avec succès';
+        this.redirectAfterUpdate();
       },
       (error) => {
         console.error('Erreur lors de la mise à jour du livre', error);
       }
     );
+  }
+
+  redirectAfterUpdate() {
+    setTimeout(() => {
+      this.ngZone.run(() => {
+        this.router.navigate(['/home', this.book.id]);
+      });
+    }, 2000);
   }
 
   loadCategories() {

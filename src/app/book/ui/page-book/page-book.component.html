@@ -1,6 +1,6 @@
 <div *ngIf="book">
   <h1> Livre enregistré</h1>
-  <img [src]="getBookCoverUrl(book.coverImage.filename)" [alt]="book.name" [title]="book.name">
+  <img [src]="getBookCoverUrl(book.coverImage.filename)" [alt]="book.name" [title]="book.name" width="200">
 
   <p>Auteur: {{book.author}}</p>
   <p>Nom: {{book.name}}</p>
