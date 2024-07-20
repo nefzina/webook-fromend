@@ -13,8 +13,17 @@ export class ProfileService {
   user!: User;
   categories!: ICategory[];
   category!: ICategory;
+  users!: IUser[];
 
   constructor(private apiService: ApiService) {
+  }
+
+  getAllUsers(): Observable<IUser[]> {
+    return this.apiService.get<IUser[]>('users').pipe(
+      tap(response => {
+        this.users = response
+      })
+    )
   }
 
   getUserById(id: number): Observable<User> {

@@ -1,11 +1,8 @@
-// @ts-ignore
-
 import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../domain/services/profile.service";
 import {IUser} from "../domain/interface/IUser";
 import {NgForOf, NgIf} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {ApiService} from "../../services/api.service";
 import {UploadService} from "../../services/upload.service";
 import {UserIdService} from "../../services/userId.service";
 import {environment} from "../../../environments/environment";
@@ -27,7 +24,7 @@ export class ProfileComponent implements OnInit {
   user!: IUser;
   defaultProfilePic: String = '../../../assets/profile.png';
 
-  constructor(private profileService: ProfileService, private apiService: ApiService,
+  constructor(private profileService: ProfileService,
               private uploadService: UploadService, private userIdService: UserIdService) {
   }
 
@@ -56,7 +53,7 @@ export class ProfileComponent implements OnInit {
     )
   }
 
-  getBookCoverUrl(filename: string): string {
+  getImageUrl(filename: string): string {
     return `${environment.API_URL}/uploads/${filename}`;
   }
 }

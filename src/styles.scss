@@ -1,3 +1,4 @@
+@use "variables" as v;
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
@@ -38,7 +39,7 @@ html, body {
   min-height: 100vh;
   margin: 0 auto;
   max-width: 1920px;
-  background-color: snow;
+  background-color: v.$light-green;
 }
 
 * {

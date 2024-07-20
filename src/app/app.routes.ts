@@ -31,6 +31,12 @@ export const routes: Routes = [
 
   },
   {
+    path: 'back-office',
+    loadComponent: () => import('./profile/ui/admin-back-office/admin-back-office.component')
+      .then(r => r.AdminBackOfficeComponent),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

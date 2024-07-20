@@ -1,0 +1,6 @@
+@use "variables" as v;
+
+.adminPage{
+  background-color: v.$light-green;
+  min-height: v.$min-body-height;
+}

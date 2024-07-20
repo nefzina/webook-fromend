@@ -1,6 +1,8 @@
 <div class="container-barre-recherche">
   <p>Recherche avec un mot clé ou la carte</p>
-  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()" (keyup.enter)="searchBooks()">
+  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()">
+<!--         (keyup.enter)="searchBooks()"-->
+
   <div *ngFor="let suggestion of filteredSuggestions">
     <div (click)="selectSuggestion(suggestion)">
       {{suggestion}}
