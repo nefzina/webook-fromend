@@ -1,17 +1,17 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Component, NgZone, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgForOf, NgIf } from "@angular/common";
-import { Category } from "../add-book/category.model";
-import { IMedia } from "../../../profile/domain/interface/IMedia";
-import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { Book } from "../../domain/models/book";
 import { UploadService } from "../../../services/upload.service";
 import { CategoryService } from "../../../services/category.service";
 import { BookService } from "../../domain/service/book.service";
-import {environment} from "../../../../environments/environment";
-import {UserIdService} from "../../../services/userId.service";
-import {ProfileService} from "../../../profile/domain/services/profile.service";
-import {IUser} from "../../../profile/domain/interface/IUser";
+import { environment } from "../../../../environments/environment";
+import { UserIdService } from "../../../services/userId.service";
+import { ProfileService } from "../../../profile/domain/services/profile.service";
+import { IUser } from "../../../profile/domain/interface/IUser";
+import { Category } from "../add-book/category.model";
+import { IMedia } from "../../../profile/domain/interface/IMedia";
 
 @Component({
   selector: 'app-update-book',
@@ -25,19 +25,17 @@ import {IUser} from "../../../profile/domain/interface/IUser";
     RouterLinkActive,
     RouterLink
   ],
-
-  styleUrls: ['./update-book.component.scss'] // Corrected from styleUrl to styleUrls
+  styleUrls: ['./update-book.component.scss']
 })
 export class UpdateBookComponent implements OnInit {
 
   book!: Book;
   user!: IUser;
-
   coverImage: IMedia | null = null;
   fileEvent!: Event;
   userId: number = 0;
-  bookId:number =0;
-  selectedFile: File | null =null;
+  bookId: number = 0;
+  selectedFile: File | null = null;
   categories: Category[] = [];
   successMessage: string = '';
 
@@ -62,31 +60,45 @@ export class UpdateBookComponent implements OnInit {
     this.userIdService.getUserId.subscribe(id => {
       this.userId = id;
       console.log('User ID', this.userId);
-
     });
 
-    if (!!this.userId) {
+    if (this.userId) {
       this.profileService.getUserById(this.userId).subscribe((response) => {
         this.user = response;
         this.book.owner = response;
-      })
+      });
     }
   }
 
+  uploadFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.fileEvent = event;
 
+      // Create a preview of the selected image
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.coverImage = { filename: e.target.result } as IMedia;
+      };
+      reader.readAsDataURL(this.selectedFile);
 
-  uploadFile(event:Event) {
-    this.uploadService.uploadFile(this.fileEvent).subscribe({
-      next: (res: IMedia | null) => {
-        this.coverImage = res;
-        this.updateBook();
-      },
-      error: (err: any) => console.error('Upload error', err)
-    });
+      // Upload the file immediately to get the URL and save it to book.coverImage
+      this.uploadService.uploadFile(event).subscribe({
+        next: (res: IMedia | null) => {
+          this.coverImage = res;
+        },
+        error: (err: any) => console.error('Upload error', err)
+      });
+    }
+  }
+
+  onSubmit() {
+    // We don't need to re-upload the file here as it's already done in uploadFile method
+    this.updateBook();
   }
 
   updateBook() {
-    console.log("livre", this.book);
     this.bookService.updateBook(this.bookId, this.book).subscribe(
       () => {
         console.log('Livre mis à jour avec succès');
@@ -114,23 +126,7 @@ export class UpdateBookComponent implements OnInit {
   }
 
   getBookCoverUrl(filename: string): string {
-    console.log(filename)
     return `${environment.API_URL}/uploads/${filename}`;
-  }
-  onSubmit() {
-    if (this.selectedFile) {
-      this.uploadService.uploadFile(this.fileEvent).subscribe(
-        {
-          next: (res) => {
-            this.book.coverImage = res;
-            this.updateBook();
-          },
-          error: (err) => console.error('Upload error', err),
-        }
-      );
-    } else {
-      this.updateBook();
-    }
   }
 
   protected readonly Event = Event;
