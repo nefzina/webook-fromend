@@ -2,32 +2,32 @@
   <h1>Modifier le Livre</h1>
   <form (ngSubmit)="onSubmit()" class="edit-book-form">
     <div class="form-row">
-      <!-- Card pour la couverture et le résumé -->
+      <!-- Card pour la couverture, nom et auteur -->
       <div class="form-column">
         <div class="card-body">
           <div class="book-image">
             <div *ngIf="coverImage">
-              <img [src]="coverImage.filename.startsWith('data:') ? coverImage.filename : getBookCoverUrl(coverImage.filename)" alt="Couverture du livre" width="200">
+              <img [src]="coverImage.filename.startsWith('data:') ? coverImage.filename : getBookCoverUrl(coverImage.filename)" alt="Couverture du livre" width="205">
               <button type="button" class="addCoverImageBtn" (click)="uploader.click()">
                 <img src="./assets/plus.png" alt="modifier avatar">
               </button>
             </div>
             <input hidden type="file" #uploader (change)="uploadFile($event)" />
           </div>
-        </div>
-      </div>
-
-      <!-- Card pour les informations du livre -->
-      <div class="form-column">
-        <div class="card-body">
           <label>
-            Nom :
+            Titre :
             <input type="text" [(ngModel)]="book.name" name="name" required>
           </label>
           <label>
             Auteur :
             <input type="text" [(ngModel)]="book.author" name="author" required>
           </label>
+        </div>
+      </div>
+
+      <!-- Card pour les informations supplémentaires du livre -->
+      <div class="form-column">
+        <div class="card-body">
           <label>
             Édition :
             <input type="text" [(ngModel)]="book.edition" name="edition">
@@ -41,7 +41,7 @@
             <textarea [(ngModel)]="book.resume" name="resume"></textarea>
           </label>
           <label>
-            Critique :
+            Avis :
             <textarea [(ngModel)]="book.review" name="review"></textarea>
           </label>
           <label for="categoryId">Catégorie:</label>
@@ -54,7 +54,6 @@
 
     <div class="form-buttons">
       <button type="submit" class="submit-btn">Enregistrer les modifications</button>
-
     </div>
   </form>
   <div *ngIf="successMessage" class="success-message">

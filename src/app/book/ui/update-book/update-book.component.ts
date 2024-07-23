@@ -83,25 +83,31 @@ export class UpdateBookComponent implements OnInit {
       };
       reader.readAsDataURL(this.selectedFile);
 
-      // Upload the file immediately to get the URL and save it to book.coverImage
       this.uploadService.uploadFile(event).subscribe({
         next: (res: IMedia | null) => {
-          this.coverImage = res;
+          if (res) {
+            this.coverImage = res;
+            this.book.coverImage = res; // Mise à jour de l'objet book avec la nouvelle image
+          }
         },
         error: (err: any) => console.error('Upload error', err)
       });
     }
   }
 
+
   onSubmit() {
-    // We don't need to re-upload the file here as it's already done in uploadFile method
+
     this.updateBook();
   }
 
   updateBook() {
+    if (this.coverImage) { // Pour bien s'assurer que l'image est incluse dans l'objet book avant l'envoi
+      this.book.coverImage = this.coverImage;
+    }
     this.bookService.updateBook(this.bookId, this.book).subscribe(
       () => {
-        console.log('Livre mis à jour avec succès');
+        console.log(this.coverImage);
         this.successMessage = 'Livre mis à jour avec succès';
         this.redirectAfterUpdate();
       },
@@ -114,7 +120,7 @@ export class UpdateBookComponent implements OnInit {
   redirectAfterUpdate() {
     setTimeout(() => {
       this.ngZone.run(() => {
-        this.router.navigate(['/home', this.book.id]);
+       this.router.navigate(['/page-book', this.bookId]);
       });
     }, 2000);
   }
