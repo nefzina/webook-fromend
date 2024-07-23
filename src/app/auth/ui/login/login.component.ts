@@ -9,6 +9,7 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {LoginRequestDto} from "../../domain/dtos/LoginRequestDto";
 import {MatIcon} from "@angular/material/icon";
 import {UserIdService} from "../../../services/userId.service";
+import {LoginResponseDto} from "../../domain/dtos/LoginResponseDto";
 
 
 @Component({
@@ -35,11 +36,12 @@ export class LoginComponent {
       const loginDto = new LoginRequestDto(this.email, this.password);
 
       this.authService.authenticate(loginDto).subscribe(
-        (isUserId: number | null) => {
-          if (isUserId) {
-            this.userIdService.setUserId(isUserId);
-             this.router.navigate(['/home']);
-            // ToDo: navigate to last visited page
+        (user: LoginResponseDto | null) => {
+          console.log(user);
+          if (user) {
+            this.userIdService.setUserId(user.id);
+            if(user.role.type === "admin") this.router.navigate(['/back-office']);
+              else this.router.navigate(['/home']);
           } else {
             this.loginError = "Email ou mot de passe incorrect.";
           }

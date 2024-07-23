@@ -17,6 +17,7 @@ import {environment} from "../../../../environments/environment";
 export class AdminBackOfficeComponent implements OnInit, AfterViewInit {
   constructor(private profileService: ProfileService, private userIdService: UserIdService) {
   }
+
   id: number = 0;
   user!: IUser;
   users!: IUser[];
@@ -30,20 +31,17 @@ export class AdminBackOfficeComponent implements OnInit, AfterViewInit {
     if (!!this.id) {
       this.profileService.getUserById(this.id).subscribe((response) => {
         this.user = response;
-      })
-    }
-
-    if (this.user?.role.type === "user") { // change it to admin !!!!!!!!!!!!!!!!!!!!!
-      this.profileService.getAllUsers().subscribe((response)=>{
-        console.log(response);
-        this.users = response;
-        this.dataSource.data = this.users;
-
+        if (this.user?.role.type === "admin") {
+          this.profileService.getAllUsers().subscribe((response) => {
+            this.users = response;
+            this.dataSource.data = response;
+          })
+        }
       })
     }
   }
 
-  displayedColumns: string[] = ['profilePicture','email', 'role','username'];
+  displayedColumns: string[] = ['profilePicture', 'email', 'role', 'username'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {

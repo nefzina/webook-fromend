@@ -5,7 +5,6 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class UserIdService {
-
   constructor() {
   }
 

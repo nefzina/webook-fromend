@@ -1,6 +1,29 @@
 @use "variables" as v;
 
-.adminPage{
+.adminPage {
   background-color: v.$light-green;
   min-height: v.$min-body-height;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 1200px;
+  }
+
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+
+    .mat-header-cell.profile-header-cell, .mat-cell.profile-cell {
+        width: clamp(50px, 5vw, 80px) !important;
+
+    }
+
+    .profilePic {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+    }
+  }
 }

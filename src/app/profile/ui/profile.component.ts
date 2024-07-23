@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userIdService.getUserId.subscribe(id => {
       this.id = id;
+      console.log("profilePge", id)
     });
     if (!!this.id) {
       this.profileService.getUserById(this.id).subscribe((response) => {

@@ -1,8 +1,9 @@
 import {Observable} from "rxjs";
 import {LoginRequestDto} from "../dtos/LoginRequestDto";
+import {LoginResponseDto} from "../dtos/LoginResponseDto";
 
 export interface IAuthenticationService {
-  authenticate(user: LoginRequestDto): Observable<number|null>;
+  authenticate(user: LoginRequestDto): Observable<LoginResponseDto|null>;
   passwordForgotten(): void;
 }
 
