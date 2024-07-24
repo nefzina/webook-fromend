@@ -8,7 +8,7 @@
       <ng-template #bookList>
         <div *ngFor="let book of user.books" class="imgContainer">
           <a [routerLink]="['/page-book', book.id]">
-            <img [src]="getBookCoverUrl(book.coverImage.filename)" [alt]="book.name" [title]="book.name">
+            <img [src]="getImageUrl(book.coverImage.filename)" [alt]="book.name" [title]="book.name">
           </a>
         </div>
       </ng-template>
@@ -18,7 +18,7 @@
   <div class="personalInfo">
     <div class="avatar">
       <img class="profilePic"
-           [src]="user.profilePicture == null ? defaultProfilePic : getBookCoverUrl(user.profilePicture.filename)"
+           [src]="user.profilePicture == null ? defaultProfilePic : getImageUrl(user.profilePicture.filename)"
            alt="your profile picture">
       <input
         hidden

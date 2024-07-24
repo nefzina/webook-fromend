@@ -9,6 +9,7 @@ import {AuthGuard} from "./auth/application/AuthGuard";
 import {AddBookComponent} from "./book/ui/add-book/add-book.component";
 import {PageBookComponent} from "./book/ui/page-book/page-book.component";
 import {UpdateBookComponent} from "./book/ui/update-book/update-book.component";
+import {AdminAuthGuard} from "./auth/application/AdminAuthGuard";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -29,6 +30,12 @@ export const routes: Routes = [
       .then(r => r.UpdateProfileComponent),
     canActivate: [AuthGuard],
 
+  },
+  {
+    path: 'back-office',
+    loadComponent: () => import('./profile/ui/admin-back-office/admin-back-office.component')
+      .then(r => r.AdminBackOfficeComponent),
+    canActivate: [AdminAuthGuard],
   },
   {
     path: 'login',
