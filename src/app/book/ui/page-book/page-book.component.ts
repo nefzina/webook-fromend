@@ -8,7 +8,6 @@ import {Book} from "../../domain/models/book";
 import {UploadService} from "../../../services/upload.service";
 import {environment} from "../../../../environments/environment";
 
-
 @Component({
   selector: 'app-page-book',
   standalone: true,
@@ -26,7 +25,6 @@ export class PageBookComponent implements OnInit{
   id:number=0;
   book!:Book;
 
-
   constructor(
     private bookService: BookService,
     private uploadService: UploadService,
@@ -38,7 +36,7 @@ export class PageBookComponent implements OnInit{
     this.id = +this.route.snapshot.paramMap.get('id')!;
     // Utiliser l'ID pour charger les informations du livre
     this.bookService.getBookById(this.id).subscribe((response) => {
-      console.log('Received book:', response); // log  pour voir book
+      console.log(response); // Vérifiez que les données sont bien reçues
       this.book = response;
     });
   }
