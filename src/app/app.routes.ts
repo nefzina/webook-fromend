@@ -13,7 +13,7 @@ import {UpdateBookComponent} from "./book/ui/update-book/update-book.component";
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  { path: 'page-book/:id', component: PageBookComponent },
+  {path: 'page-book/:id', component: PageBookComponent },
   {path: 'recherche', component: PageRechercheComponent},
   {path: 'addBook', component: AddBookComponent, canActivate: [AuthGuard]},
   {path: 'updateBook/:id', component: UpdateBookComponent},

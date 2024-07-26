@@ -1,14 +1,16 @@
 <div class="container-barre-recherche">
   <p>Recherche avec un mot clé ou la carte</p>
-  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()" (keyup.enter)="searchBooks()">
+  <input [(ngModel)]="searchText" placeholder="Recherche avec mot clé ou code postal" (input)="onSearchChange()">
   <div *ngFor="let suggestion of filteredSuggestions">
     <div (click)="selectSuggestion(suggestion)">
       {{suggestion}}
     </div>
   </div>
-  <button  (click)="showMap()">Afficher carte</button>
+  <button  (click)="showMap()">{{ showMapComponent ? 'Masquer carte' : 'Afficher carte' }}</button>
 </div>
-
+<div *ngIf="showMapComponent" class="container">
+  <app-map></app-map>
+</div>
 <div class="filters">
   <p>FILTRER par :</p>
   <select name="category" (change)="onCategoryChange($event)">
