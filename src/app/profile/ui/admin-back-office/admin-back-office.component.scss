@@ -1,4 +1,18 @@
 @use "variables" as v;
+img {
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+
+
+}
+.profilePic{
+  margin-right: -20px;
+  // padding: -1000px;
+}
+.osef{
+  margin: 1000px;
+}
 
 .adminPage {
   background-color: v.$light-green;
@@ -16,14 +30,9 @@
     max-height: 500px;
 
     .mat-header-cell.profile-header-cell, .mat-cell.profile-cell {
-        width: clamp(50px, 5vw, 80px) !important;
+      width: clamp(50px, 5vw, 80px) !important;
 
     }
 
-    .profilePic {
-      width: 100%;
-      height: auto;
-      border-radius: 50%;
-    }
   }
 }
